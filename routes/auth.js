@@ -1,6 +1,7 @@
 var express = require("express");
 
 var auth = require("../libs/auth");
+var db = require("../libs/db");
 
 var login  = express.Router();
 var logout = express.Router();
@@ -9,10 +10,17 @@ login.post("/", function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
 
-    // TODO: Check user
-    var token_obj = { user: { username: username }};
-    auth.startSession(res, token_obj);
-    res.redirect("/");
+    db.checkUser(
+        username,
+        password,
+        function(data) {
+            var token_obj = { user: { username: username }};
+            auth.startSession(res, token_obj);
+            res.redirect("/");
+        },
+        function(error) {
+            res.redirect("/");
+        });
 });
 
 // router.get("/", function(req, res) {
