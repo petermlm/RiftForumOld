@@ -27,12 +27,14 @@ app.use(cookieParser());
 
 var routes = {
     index:  require("./routes/index"),
-    auth:   require("./routes/auth")
+    auth:   require("./routes/auth"),
+    topics: require("./routes/topics")
 };
 
 app.use("/", routes.index);
 app.use("/login",  routes.auth.login);
 app.use("/logout", routes.auth.logout);
+app.use("/topics", routes.topics);
 
 /* ============================================================================
  * Listen
