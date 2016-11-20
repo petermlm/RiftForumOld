@@ -14,8 +14,8 @@
     JSON - POST /topics/:topic_id             - Create a new message in the topic
     JSON - PUT  /topics/:topic_id/:message_id - Edits message
 
-    RAW  - GET  /login  - Creates jwt token for user, starting a session. Redirects to "/"
-    RAW  - GET  /logout - Ends a session. Redirects to "/"
+    RAW  - GET    /auth - Creates jwt token for user, starting a session. Redirects to "/"
+    RAW  - DELETE /auth - Ends a session. Redirects to "/"
 
 # Pages
 
