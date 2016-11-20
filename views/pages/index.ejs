@@ -13,7 +13,12 @@
 
     <main>
         <div class="well">Topics</div>
-        TODO
+        <div class="list-group">
+            <% topics.forEach(function(topic) { %>
+                <!-- <li class="list&#45;group&#45;item"><%= user.username %> &#45; <%= user.user_type %></li> -->
+                <a href="#" class="list-group-item"><%= topic.title %></a>
+            <% }); %>
+        </div>
     </main>
 
     <footer>

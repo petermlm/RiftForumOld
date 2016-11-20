@@ -26,9 +26,8 @@ app.use(cookieParser());
  */
 
 var routes = {
-    index: require("./routes/index"),
-    auth:  require("./routes/auth"),
-    // topics: require("./routes/topics")
+    index:  require("./routes/index"),
+    auth:   require("./routes/auth")
 };
 
 app.use("/", routes.index);
