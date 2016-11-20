@@ -2,19 +2,29 @@ var express = require("express");
 
 var auth = require("../libs/auth");
 
-var router = express.Router();
+var login  = express.Router();
+var logout = express.Router();
 
-router.post("/", function(req, res) {
+login.post("/", function(req, res) {
+    var username = req.body.username;
+    var password = req.body.password;
+
     // TODO: Check user
+    var token_obj = { user: { username: username }};
     auth.startSession(res, token_obj);
+    res.redirect("/");
 });
 
-route.get("/", function(req, res) {
-    auth.checkSession(req);
-});
+// router.get("/", function(req, res) {
+//     auth.checkSession(req);
+// });
 
-router.delete("/", function(req, res) {
+logout.post("/", function(req, res) {
     auth.endSession(res);
+    res.redirect("/");
 });
 
-module.exports = router;
+module.exports = {
+    login:  login,
+    logout: logout
+};

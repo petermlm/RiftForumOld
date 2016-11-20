@@ -1,9 +1,22 @@
 var express = require("express");
+var path    = require("path");
+
+var auth = require("../libs/auth");
+var render_args = require("../libs/render_args");
 
 var router = express.Router();
 
 router.get("/", function(req, res) {
-    res.end("TODO");
+    var args = render_args.newRenderArgs();
+    render_args.setPage(args, "index");
+
+    var session = auth.checkSession(req);
+    if(session != undefined) {
+        render_args.setUser(args, session.user);
+        render_args.setLogin(args, true);
+    }
+
+    res.render(path.join("../views/pages", "index"), args);
 });
 
 module.exports = router;

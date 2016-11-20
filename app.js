@@ -26,13 +26,14 @@ app.use(cookieParser());
  */
 
 var routes = {
-    index:  require("./routes/index"),
-    auth:   require("./routes/auth"),
+    index: require("./routes/index"),
+    auth:  require("./routes/auth"),
     // topics: require("./routes/topics")
 };
 
 app.use("/", routes.index);
-app.use("/auth", routes.auth);
+app.use("/login",  routes.auth.login);
+app.use("/logout", routes.auth.logout);
 
 /* ============================================================================
  * Listen

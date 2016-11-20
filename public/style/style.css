@@ -1,0 +1,18 @@
+body {
+    padding-top: 50px;
+}
+
+.nav_right {
+    float: right;
+    padding-top: 8px;
+    color: #777;
+}
+
+.user_display {
+    padding-top: 8px;
+    padding-right: 14px;
+}
+
+.nav_right_element {
+    float: right;
+}

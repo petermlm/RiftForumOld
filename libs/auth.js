@@ -1,5 +1,7 @@
 var jwt = require("jsonwebtoken");
 
+var config = require("./config");
+
 function startSession(res, token_obj) {
     token = jwt.sign(token_obj, config.secret, config.expires);
     res.cookie("token", token);
