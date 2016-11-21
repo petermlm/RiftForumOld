@@ -16,3 +16,20 @@ body {
 .nav_right_element {
     float: right;
 }
+
+.topics_list_item {
+    margin: 1px 0px;
+    padding: 15px 0px;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+.topics_list_timestamp {
+    text-align: right;
+}
+
+footer {
+    margin-top: 20px;
+}
