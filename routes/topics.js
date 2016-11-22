@@ -8,6 +8,32 @@ var db = require("../libs/db");
 
 var router = express.Router();
 
+router.post("/", function(req, res) {
+    var args = render_args.newRenderArgs();
+    render_args.setPage(args, "index");
+
+    var session = auth.checkSession(req);
+    if(session != undefined) {
+        render_args.setUser(args, session.user);
+        render_args.setLogin(args, true);
+    } else {
+        res.end("Error");
+        return;
+    }
+
+    var title   = req.body.title;
+    var message = req.body.message;
+
+    db.newTopic(title, message,
+        function(topid_id) {
+            res.redirect(path.join(req.originalUrl, ""+1));
+        },
+        function(error) {
+            console.log(error);
+            res.redirect("back");
+        });
+});
+
 router.get("/:topic_id", function(req, res) {
     var args = render_args.newRenderArgs();
     render_args.setPage(args, "index");
