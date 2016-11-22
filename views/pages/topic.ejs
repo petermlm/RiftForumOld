@@ -19,6 +19,13 @@
                 <li class="list-group-item"><%= message.message %></li>
             <% }); %>
         </div>
+
+        <div>
+            <form method="POST" action="/topics/<%= topic.topic_id %>">
+                <textarea name="message"></textarea>
+                <button type="submit" class="btn btn-default">Send</button>
+            </form>
+        </div>
     </main>
 
     <footer>

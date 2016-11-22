@@ -23,7 +23,8 @@ router.get("/:topic_id", function(req, res) {
     db.getTopicInfo(topic_id,
         function(data) {
             args.topic = {
-                "title": data.title
+                "topic_id": topic_id,
+                "title":    data.title
             };
 
             db.getMessages(topic_id,
@@ -41,6 +42,31 @@ router.get("/:topic_id", function(req, res) {
         },
         function(error) {
             res.end("Error");
+        });
+});
+
+router.post("/:topic_id", function(req, res) {
+    var args = render_args.newRenderArgs();
+    render_args.setPage(args, "index");
+
+    var session = auth.checkSession(req);
+    if(session != undefined) {
+        render_args.setUser(args, session.user);
+        render_args.setLogin(args, true);
+    } else {
+        res.end("Error");
+    }
+
+    var topic_id = req.params.topic_id;
+    var message = req.body.message;
+
+    db.newMessage(topic_id, message,
+        function() {
+            res.redirect("back");
+        },
+        function(error) {
+            console.log(error);
+            res.redirect("back");
         });
 });
 
