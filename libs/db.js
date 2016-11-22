@@ -24,15 +24,39 @@ function checkUser(username, password, good, bad) {
 
 function getTopics(good, bad) {
     var query = "select Topics.topic_id, "
-              + "Topics.title, "
-              + "Topics.topic_timestamp, "
-              + "Users.username "
+              + "       Topics.title, "
+              + "       Topics.topic_timestamp, "
+              + "       Users.username "
               + "from Topics inner join Users on Topics.user_id = Users.user_id;";
     db.query(query)
         .then(good).catch(bad);
 }
 
+function getTopicInfo(topic_id, good, bad) {
+    var query = "select topic_id, "
+              + "       user_id, "
+              + "       title, "
+              + "       topic_timestamp "
+              + "from Topics "
+              + "where topic_id = $1#;";
+    db.one(query, [topic_id]).then(good).catch(bad);
+}
+
+function getMessages(topic_id, good, bad) {
+    var query = "select message_id, "
+              + "       topic_id, "
+              + "       user_id, "
+              + "       message, "
+              + "       message_timestamp "
+              + "from Messages "
+              + "where topic_id = $1#;";
+
+    db.query(query, [topic_id]).then(good).catch(bad);
+}
+
 module.exports = {
-    checkUser: checkUser,
-    getTopics: getTopics
+    checkUser:    checkUser,
+    getTopics:    getTopics,
+    getTopicInfo: getTopicInfo,
+    getMessages:  getMessages
 };

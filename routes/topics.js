@@ -4,6 +4,7 @@ var path    = require("path");
 var auth = require("../libs/auth");
 var topics = require("../libs/topics");
 var render_args = require("../libs/render_args");
+var db = require("../libs/db");
 
 var router = express.Router();
 
@@ -17,16 +18,30 @@ router.get("/:topic_id", function(req, res) {
         render_args.setLogin(args, true);
     }
 
-    args.topic = {
-        "title": "Title goes here",
-        "messages": [
-            { "message": "Msg 1" },
-            { "message": "Msg 2" },
-            { "message": "Msg 3" },
-            { "message": "Msg 4" }
-        ]
-    };
-    res.render(path.join("../views/pages", "topic"), args);
+    var topic_id = req.params.topic_id;
+
+    db.getTopicInfo(topic_id,
+        function(data) {
+            args.topic = {
+                "title": data.title
+            };
+
+            db.getMessages(topic_id,
+                function(data) {
+                    console.log(data);
+                    args.topic.messages = [];
+                    data.forEach(function(message) {
+                        args.topic.messages.push({ "message": message.message });
+                    });
+                    res.render(path.join("../views/pages", "topic"), args);
+                },
+                function(error) {
+                    res.end("Error");
+                });
+        },
+        function(error) {
+            res.end("Error");
+        });
 });
 
 module.exports = router;
