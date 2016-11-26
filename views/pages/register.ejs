@@ -1,0 +1,30 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>
+        <div class="well">Register New User</div>
+        <div>
+            <form method="POST" action="/register">
+                <input class="form-control" name="username" placeholder="Username" type="text" />
+                <input class="form-control" name="password" placeholder="Password" type="password" />
+                <input class="form-control" name="password2" placeholder="Confirm Password" type="password" />
+                <button type="submit" class="btn btn-default">Register</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+</body>
+</html>

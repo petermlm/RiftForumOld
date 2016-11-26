@@ -95,6 +95,12 @@ function usersList(good, bad) {
     db.query(query).then(good).catch(bad);
 }
 
+function newUser(username, password, good, bad) {
+    var query = "insert into Users(username, password, signature, about, user_type) "
+              + "values('$1#', '$2#', '', '', 'User')";
+    db.query(query, [username, password]).then(good).catch(bad);
+};
+
 module.exports = {
     checkUser:    checkUser,
     getTopics:    getTopics,
@@ -102,5 +108,6 @@ module.exports = {
     getMessages:  getMessages,
     newMessage:   newMessage,
     newTopic:     newTopic,
-    usersList:    usersList
+    usersList:    usersList,
+    newUser:      newUser
 };
