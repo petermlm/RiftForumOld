@@ -90,11 +90,17 @@ function newTopic(title, message, good, bad) {
     db.query(query, [title, message]).then(good).catch(bad);
 }
 
+function usersList(good, bad) {
+    var query = "select username, user_type from Users";
+    db.query(query).then(good).catch(bad);
+}
+
 module.exports = {
     checkUser:    checkUser,
     getTopics:    getTopics,
     getTopicInfo: getTopicInfo,
     getMessages:  getMessages,
     newMessage:   newMessage,
-    newTopic:     newTopic
+    newTopic:     newTopic,
+    usersList:    usersList
 };

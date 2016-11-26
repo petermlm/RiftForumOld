@@ -1,0 +1,28 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>
+        <div class="well">Users List</div>
+        <% users.forEach(function(user) { %>
+            <div class="row topics_list_item">
+                <div class="col-sm-8"><%= user.username %></div>
+                <div class="col-sm-4"><%= user.user_type %></div>
+            </div>
+        <% }); %>
+    </main>
+
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+</body>
+</html>

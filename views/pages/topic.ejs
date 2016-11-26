@@ -15,7 +15,6 @@
         <div class="well"><%= topic.title %></div>
         <div class="list-group">
             <% topic.messages.forEach(function(message) { %>
-                <!-- <li class="list&#45;group&#45;item"><%= user.username %> &#45; <%= user.user_type %></li> -->
                 <li class="list-group-item"><%= message.message %></li>
             <% }); %>
         </div>
