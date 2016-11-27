@@ -99,7 +99,14 @@ function newUser(username, password, good, bad) {
     var query = "insert into Users(username, password, signature, about, user_type) "
               + "values('$1#', '$2#', '', '', 'User')";
     db.query(query, [username, password]).then(good).catch(bad);
-};
+}
+
+function getUserInfo(username, good, bad) {
+    var query = "select username, signature, about, user_type "
+              + "from Users "
+              + "where username = '$1#'";
+    db.one(query, [username]).then(good).catch(bad);
+}
 
 module.exports = {
     checkUser:    checkUser,
@@ -109,5 +116,6 @@ module.exports = {
     newMessage:   newMessage,
     newTopic:     newTopic,
     usersList:    usersList,
-    newUser:      newUser
+    newUser:      newUser,
+    getUserInfo:  getUserInfo
 };

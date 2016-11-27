@@ -14,7 +14,7 @@
     <main>
         <div class="well">Users List</div>
         <% users.forEach(function(user) { %>
-            <div class="row topics_list_item">
+            <div class="row topics_list_item" onclick="location.href='/users/<%= user.username %>';">
                 <div class="col-sm-8"><%= user.username %></div>
                 <div class="col-sm-4"><%= user.user_type %></div>
             </div>

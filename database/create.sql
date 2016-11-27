@@ -15,7 +15,7 @@ create type UserType as enum (
 
 create table Users (
     user_id   serial primary key,
-    username  varchar(25),
+    username  varchar(25) unique,
     password  varchar(25),
     signature varchar(100),
     about     varchar(500),
