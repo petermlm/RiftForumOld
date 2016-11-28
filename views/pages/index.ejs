@@ -14,10 +14,23 @@
     <main>
         <div class="well">Topics</div>
         <% topics.forEach(function(topic) { %>
-            <div class="row topics_list_item" onclick="location.href='/topics/<%= topic.topic_id %>';">
-                <div class="col-sm-2"><%= topic.username %></div>
-                <div class="col-sm-6"><%= topic.title %></div>
-                <div class="col-sm-4 topics_list_timestamp"><%= topic.topic_timestamp %></div>
+            <div class="topics_list_topic">
+                <div class="topics_list_title" onclick="location.href='/topics/<%= topic.topic_id %>';">
+                    <a href="/topics/<%= topic.topic_id %>"><%= topic.title %></a>
+                </div>
+                <div class="topics_list_messages">10 Messages</div>
+                <div class="topics_list_dates">
+                    <div>Created by
+                        <span class="topics_list_username_display"><%= topic.username %></span>
+                        on
+                        <span class="topics_list_timestamp_display"><%= topic.topic_timestamp %></span>
+                    </div>
+                    <div>Last by
+                        <span class="topics_list_username_display"><%= topic.username %></span>
+                        on
+                        <span class="topics_list_timestamp_display"><%= topic.topic_timestamp %></span>
+                    </div>
+                </div>
             </div>
         <% }); %>
         <div>

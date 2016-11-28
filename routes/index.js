@@ -21,6 +21,7 @@ router.get("/", function(req, res) {
         var topics = [];
 
         data.forEach(function(topic) {
+            console.log(topic.topic_timestamp);
             topics.push({
                 topic_id:        topic.topic_id,
                 title:           topic.title,

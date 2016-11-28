@@ -25,11 +25,11 @@ function checkUser(username, password, good, bad) {
 function getTopics(good, bad) {
     var query = "select Topics.topic_id, "
               + "       Topics.title, "
-              + "       Topics.topic_timestamp, "
+              + "       to_char(Topics.topic_timestamp, 'DD Mon, YYYY HH:MM AM') as topic_timestamp, "
               + "       Users.username "
               + "from Topics inner join Users on Topics.user_id = Users.user_id;";
-    db.query(query)
-        .then(good).catch(bad);
+
+    db.query(query).then(good).catch(bad);
 }
 
 function getTopicInfo(topic_id, good, bad) {
@@ -39,6 +39,7 @@ function getTopicInfo(topic_id, good, bad) {
               + "       topic_timestamp "
               + "from Topics "
               + "where topic_id = $1#;";
+
     db.one(query, [topic_id]).then(good).catch(bad);
 }
 
