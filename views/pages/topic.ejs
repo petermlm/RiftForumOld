@@ -13,11 +13,15 @@
 
     <main>
         <div class="well"><%= topic.title %></div>
-        <div class="list-group">
-            <% topic.messages.forEach(function(message) { %>
-                <li class="list-group-item"><%= message.message %></li>
-            <% }); %>
-        </div>
+        <% topic.messages.forEach(function(message) { %>
+            <div class="messages_list">
+                <div class="messages_list_info">
+                    By <span class="messages_list_info_username"><%= message.Username %>
+                    on <span class="messages_list_info_timestamp"><%= message.MessageTime %>
+                </div>
+                <div class="messages_list_message"><%= message.Message %></div>
+            </div>
+        <% }); %>
 
         <div>
             <form method="POST" action="/topics/<%= topic.topic_id %>">

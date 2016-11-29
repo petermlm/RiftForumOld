@@ -68,3 +68,32 @@ footer {
 {
     color: black;
 }
+
+/* ============================================================================
+ * Messages List
+ * ============================================================================
+ */
+
+.messages_list {
+}
+
+.messages_list_info {
+    background: #afafaf;
+    height: 30px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    border-top: 2px solid black;
+}
+
+.messages_list_message {
+    background: #efefef;
+    padding: 30px 10px;
+    border-bottom: 2px solid black;
+}
+
+.messages_list_info_username,
+.messages_list_info_timestamp
+{
+    color: black;
+}

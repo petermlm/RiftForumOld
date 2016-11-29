@@ -67,13 +67,9 @@ function getTopicInfo(topic_id, good, bad) {
 }
 
 function getMessages(topic_id, good, bad) {
-    var query = "select message_id, "
-              + "       topic_id, "
-              + "       user_id, "
-              + "       message, "
-              + "       message_timestamp "
-              + "from Messages "
-              + "where topic_id = $1#;";
+    var query = "select * "
+              + "from GetMessages "
+              + "where GetMessages.\"TopicId\" = $1#";
 
     db.query(query, [topic_id]).then(good).catch(bad);
 }

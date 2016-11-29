@@ -5,6 +5,7 @@ drop table if exists Topics cascade;
 drop table if exists Messages cascade;
 
 drop view if exists GetTopics cascade;
+drop view if exists GetMessages cascade;
 
 -- ----------------------------------------------------------------------------
 -- User types and tables
@@ -79,6 +80,17 @@ from
         group by Messages.topic_id
     ) as MsgCount
     on Topics.topic_id = MsgCount.topic_id;
+
+create view GetMessages as
+select Messages.message_id as "MessageId",
+       Messages.topic_id   as "TopicId",
+       Users.username      as "Username",
+       Messages.message    as "Message",
+       to_char(Messages.message_timestamp, 'DD Mon, YYYY HH:MI AM')
+            as "MessageTime"
+from Messages inner join Users on Messages.user_id = Users.user_id
+order by Messages.message_timestamp;
+
 
 -- ----------------------------------------------------------------------------
 -- Insert default data

@@ -55,10 +55,8 @@ router.get("/:topic_id", function(req, res) {
 
             db.getMessages(topic_id,
                 function(data) {
-                    args.topic.messages = [];
-                    data.forEach(function(message) {
-                        args.topic.messages.push({ "message": message.message });
-                    });
+                    console.log(data);
+                    args.topic.messages = data;
                     res.render(path.join("../views/pages", "topic"), args);
                 },
                 function(error) {
