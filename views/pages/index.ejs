@@ -15,20 +15,20 @@
         <div class="well">Topics</div>
         <% topics.forEach(function(topic) { %>
             <div class="topics_list_topic">
-                <div class="topics_list_title" onclick="location.href='/topics/<%= topic.topic_id %>';">
-                    <a href="/topics/<%= topic.topic_id %>"><%= topic.title %></a>
+                <div class="topics_list_title" onclick="location.href='/topics/<%= topic.TopicId %>';">
+                    <a href="/topics/<%= topic.TopicId %>"><%= topic.TopicTitle %></a>
                 </div>
-                <div class="topics_list_messages">10 Messages</div>
+                <div class="topics_list_messages"><%= topic.TopicMessageCount %> Messages</div>
                 <div class="topics_list_dates">
                     <div>Created by
-                        <span class="topics_list_username_display"><%= topic.username %></span>
+                        <span class="topics_list_username_display"><%= topic.TopicAuthor %></span>
                         on
-                        <span class="topics_list_timestamp_display"><%= topic.topic_timestamp %></span>
+                        <span class="topics_list_timestamp_display"><%= topic.TopicTimestamp %></span>
                     </div>
                     <div>Last by
-                        <span class="topics_list_username_display"><%= topic.username %></span>
+                        <span class="topics_list_username_display"><%= topic.TopicLastAuthor %></span>
                         on
-                        <span class="topics_list_timestamp_display"><%= topic.topic_timestamp %></span>
+                        <span class="topics_list_timestamp_display"><%= topic.TopicLastTimestamp %></span>
                     </div>
                 </div>
             </div>

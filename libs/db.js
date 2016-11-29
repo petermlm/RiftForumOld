@@ -11,10 +11,11 @@ var pgp = pg_promise(options);
 var db = pgp(config.database);
 
 /* ============================================================================
- * Database operations
+ * User operations
  * ============================================================================
  */
 
+// Checks if user and password are correct
 function checkUser(username, password, good, bad) {
     db.one("select username from Users where Users.username = '$1#' and Users.password = '$2#';",
            [username, password])
@@ -22,13 +23,35 @@ function checkUser(username, password, good, bad) {
         .catch(bad);
 }
 
-function getTopics(good, bad) {
-    var query = "select Topics.topic_id, "
-              + "       Topics.title, "
-              + "       to_char(Topics.topic_timestamp, 'DD Mon, YYYY HH:MM AM') as topic_timestamp, "
-              + "       Users.username "
-              + "from Topics inner join Users on Topics.user_id = Users.user_id;";
+// Get a list of users
+function usersList(good, bad) {
+    var query = "select username, user_type from Users";
+    db.query(query).then(good).catch(bad);
+}
 
+// Creates a new user
+function newUser(username, password, good, bad) {
+    var query = "insert into Users(username, password, signature, about, user_type) "
+              + "values('$1#', '$2#', '', '', 'User')";
+    db.query(query, [username, password]).then(good).catch(bad);
+}
+
+// Get information on a user
+function getUserInfo(username, good, bad) {
+    var query = "select username, signature, about, user_type "
+              + "from Users "
+              + "where username = '$1#'";
+    db.one(query, [username]).then(good).catch(bad);
+}
+
+/* ============================================================================
+ * Topics and Messages
+ * ============================================================================
+ */
+
+// Gets list of topics
+function getTopics(good, bad) {
+    var query = "select * from GetTopics";
     db.query(query).then(good).catch(bad);
 }
 
@@ -91,32 +114,17 @@ function newTopic(title, message, good, bad) {
     db.query(query, [title, message]).then(good).catch(bad);
 }
 
-function usersList(good, bad) {
-    var query = "select username, user_type from Users";
-    db.query(query).then(good).catch(bad);
-}
-
-function newUser(username, password, good, bad) {
-    var query = "insert into Users(username, password, signature, about, user_type) "
-              + "values('$1#', '$2#', '', '', 'User')";
-    db.query(query, [username, password]).then(good).catch(bad);
-}
-
-function getUserInfo(username, good, bad) {
-    var query = "select username, signature, about, user_type "
-              + "from Users "
-              + "where username = '$1#'";
-    db.one(query, [username]).then(good).catch(bad);
-}
-
 module.exports = {
+    // User operations
     checkUser:    checkUser,
+    usersList:    usersList,
+    newUser:      newUser,
+    getUserInfo:  getUserInfo,
+
+    // Topics and Messages
     getTopics:    getTopics,
     getTopicInfo: getTopicInfo,
     getMessages:  getMessages,
     newMessage:   newMessage,
-    newTopic:     newTopic,
-    usersList:    usersList,
-    newUser:      newUser,
-    getUserInfo:  getUserInfo
+    newTopic:     newTopic
 };

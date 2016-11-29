@@ -60,6 +60,7 @@ footer {
     background: #efefef;
     padding: 5px 10px;
     color: grey;
+    text-align: right;
 }
 
 .topics_list_username_display,

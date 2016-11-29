@@ -18,19 +18,7 @@ router.get("/", function(req, res) {
     }
 
     topics.getTopics(function(data) {
-        var topics = [];
-
-        data.forEach(function(topic) {
-            console.log(topic.topic_timestamp);
-            topics.push({
-                topic_id:        topic.topic_id,
-                title:           topic.title,
-                topic_timestamp: topic.topic_timestamp,
-                username:        topic.username
-            });
-        });
-
-        args.topics = topics;
+        args.topics = data;
         res.render(path.join("../views/pages", "index"), args);
     });
 });
