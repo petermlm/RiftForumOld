@@ -1,3 +1,3 @@
 #!/bin/bash
 
-psql miniforum_dev < ../database/create.sql
+psql riftforum_dev < ../database/create.sql

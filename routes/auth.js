@@ -23,10 +23,6 @@ login.post("/", function(req, res) {
         });
 });
 
-// router.get("/", function(req, res) {
-//     auth.checkSession(req);
-// });
-
 logout.post("/", function(req, res) {
     auth.endSession(res);
     res.redirect("/");

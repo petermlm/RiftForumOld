@@ -4,7 +4,8 @@ body {
 }
 
 footer {
-    margin-top: 20px;
+    clear: both;
+    margin-top: 80px;
 }
 
 .nav_right {
@@ -67,6 +68,29 @@ footer {
 .topics_list_timestamp_display
 {
     color: black;
+}
+
+/* ============================================================================
+ * New Topic
+ * ============================================================================
+ */
+
+.new_topic_forum {
+    margin-top: 25px;
+    padding: 0px 10px;
+    width: 690px;
+    clear: both;
+}
+
+.new_topic_forum form textarea {
+    margin-top: 10px;
+    resize: vertical;
+    height: 8em;
+}
+
+.new_topic_forum form button {
+    margin-top: 10px;
+    float: right;
 }
 
 /* ============================================================================
