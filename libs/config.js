@@ -8,9 +8,9 @@ module.exports = {
 
     // Database
     database: {
-        user:              "petermlm",
-        database:          "miniforum_dev",
-        password:          "some",
+        user:              "riftforum",
+        database:          "riftforum_dev",
+        password:          "riftpw",
         host:              "localhost",
         port:              5432,
         max:               10,
