@@ -31,6 +31,27 @@ select NewTopic(
     'Test Topic 3',
     'Test Message 3');
 
+insert into Messages(topic_id, user_id, message, message_timestamp)
+values(
+    (select topic_id from Topics limit 1),
+    (select user_id from Users where Users.username = 'Mod' limit 1),
+    'Message 2',
+    now());
+
+insert into Messages(topic_id, user_id, message, message_timestamp)
+values(
+    (select topic_id from Topics limit 1),
+    (select user_id from Users where Users.username = 'Root' limit 1),
+    'Message 3',
+    now());
+
+insert into Messages(topic_id, user_id, message, message_timestamp)
+values(
+    (select topic_id from Topics limit 1),
+    (select user_id from Users where Users.username = 'User' limit 1),
+    'Message 4',
+    now());
+
 -- insert into Messages(topic_id, user_id, message, message_timestamp)
 -- values
 -- (

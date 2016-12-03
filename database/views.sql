@@ -1,33 +1,62 @@
 create view GetTopics as
-select Topics.topic_id           as "TopicId",
-       Topics.title              as "TopicTitle",
-       MsgCount.count            as "TopicMessageCount",
-       Users.username            as "TopicAuthor",
-       TopicLast.TopicLastAuthor as "TopicLastAuthor",
+select Topics.topic_id as "TopicId",
+       Topics.title as "TopicTitle",
+       MessagesCountPerTopic.count as "TopicMessageCount",
+       Users.username as "TopicAuthor",
+       MessagesAuthorPerTopic.username as "TopicLastAuthor",
        to_char(Topics.topic_timestamp, 'DD Mon, YYYY HH:MI AM')
             as "TopicTimestamp",
-       to_char(TopicLast.TopicLastTimestamp, 'DD Mon, YYYY HH:MI AM')
+       to_char(LastMessageTimestampPerTopic.timestamp, 'DD Mon, YYYY HH:MI AM')
             as "TopicLastTimestamp"
 from
-    Topics inner join Users on Topics.user_id = Users.user_id
+    -- Topics
+    Topics
     inner join
-    (
-        select Messages.topic_id as topic_id,
-               Users.username as TopicLastAuthor,
-               max(Messages.message_timestamp) as TopicLastTimestamp
-        from Messages inner join Users on Messages.user_id = Users.user_id
-        group by Messages.topic_id, Users.username
-    ) as TopicLast
-    on Topics.topic_id = TopicLast.topic_id
+
+    -- Users
+    Users
+    on Topics.user_id = Users.user_id
     inner join
+
+    -- Messages Count per topic
     (
         select Messages.topic_id as topic_id,
                count(Messages.message_id) as count
         from Messages
         group by Messages.topic_id
-    ) as MsgCount
-    on Topics.topic_id = MsgCount.topic_id
-order by TopicLast.TopicLastTimestamp desc;
+    ) as MessagesCountPerTopic
+    on Topics.topic_id = MessagesCountPerTopic.topic_id
+    inner join
+
+    -- Last message author per topic
+    (
+        select max_res.topic_id as topic_id,
+               Users.username as username
+        from
+            Users inner join (
+                select Messages.topic_id as topic_id,
+                       Messages.message_id as message_id,
+                       Messages.user_id as user_id,
+                       Messages.message_timestamp as message_timestamp,
+                       max(Messages.message_timestamp) over (
+                        partition by Messages.topic_id) as max_res_p
+                from Messages
+            ) as max_res
+            on Users.user_id = max_res.user_id
+        where max_res.message_timestamp = max_res_p
+    ) as MessagesAuthorPerTopic
+    on Topics.topic_id = MessagesAuthorPerTopic.topic_id
+    inner join
+
+    -- Last message timestamp per topic
+    (
+        select Messages.topic_id as topic_id,
+               max(Messages.message_timestamp) as timestamp
+        from Messages
+        group by Messages.topic_id
+    ) as LastMessageTimestampPerTopic
+    on Topics.topic_id = LastMessageTimestampPerTopic.topic_id
+order by LastMessageTimestampPerTopic.timestamp desc;
 
 create view GetMessages as
 select Messages.message_id as "MessageId",
