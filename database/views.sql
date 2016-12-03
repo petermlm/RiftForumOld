@@ -26,7 +26,8 @@ from
         from Messages
         group by Messages.topic_id
     ) as MsgCount
-    on Topics.topic_id = MsgCount.topic_id;
+    on Topics.topic_id = MsgCount.topic_id
+order by TopicLast.TopicLastTimestamp desc;
 
 create view GetMessages as
 select Messages.message_id as "MessageId",

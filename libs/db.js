@@ -72,17 +72,11 @@ function getMessages(topic_id, good, bad) {
     db.query(query, [topic_id]).then(good).catch(bad);
 }
 
-function newMessage(topic_id, message, good, bad) {
-    var query = "insert into Messages(topic_id, "
-              + "                     user_id, "
-              + "                     message, "
-              + "                     message_timestamp) "
-              + "values($1#, "
-              + "       (select user_id from Users where username = 'Root'), "
-              + "       '$2#', "
-              + "       now());";
+function newMessage(topic_id, user_id, message, good, bad) {
+    var query = "insert into Messages(topic_id, user_id, message, message_timestamp) "
+              + "values($1#, $2#, '$3#', now());";
 
-    db.query(query, [topic_id, message]).then(good).catch(bad);
+    db.query(query, [topic_id, user_id, message]).then(good).catch(bad);
 }
 
 function newTopic(user_id, title, message, good, bad) {

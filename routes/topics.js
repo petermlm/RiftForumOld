@@ -82,9 +82,10 @@ router.post("/:topic_id", function(req, res) {
     }
 
     var topic_id = req.params.topic_id;
-    var message = req.body.message;
+    var user_id  = token_object.user_id;
+    var message  = req.body.message;
 
-    db.newMessage(topic_id, message,
+    db.newMessage(topic_id, user_id, message,
         function() {
             res.redirect("back");
         },
