@@ -9,22 +9,24 @@ var db = require("../libs/db");
 var router = express.Router();
 
 router.post("/", function(req, res) {
-    var args = render_args.newRenderArgs();
-    render_args.setPage(args, "index");
+    // Prepare render arguments
+    var args = new render_args();
+    args.setPage("index");
 
-    var session = auth.checkSession(req);
-    if(session != undefined) {
-        render_args.setUser(args, session.user);
-        render_args.setLogin(args, true);
+    // Check session
+    var token_object = auth.checkSession(req);
+    if(token_object != undefined) {
+        args.setLoggedinUser(token_object);
     } else {
         res.end("Error");
         return;
     }
 
+    var user_id = token_object.user_id;
     var title   = req.body.title;
     var message = req.body.message;
 
-    db.newTopic(title, message,
+    db.newTopic(user_id, title, message,
         function(topid_id) {
             res.redirect(path.join(req.originalUrl, ""+1));
         },
@@ -35,13 +37,14 @@ router.post("/", function(req, res) {
 });
 
 router.get("/:topic_id", function(req, res) {
-    var args = render_args.newRenderArgs();
-    render_args.setPage(args, "index");
+    // Prepare render arguments
+    var args = new render_args();
+    args.setPage("index");
 
-    var session = auth.checkSession(req);
-    if(session != undefined) {
-        render_args.setUser(args, session.user);
-        render_args.setLogin(args, true);
+    // Check session
+    var token_object = auth.checkSession(req);
+    if(token_object != undefined) {
+        args.setLoggedinUser(token_object);
     }
 
     var topic_id = req.params.topic_id;
@@ -73,8 +76,7 @@ router.post("/:topic_id", function(req, res) {
 
     var session = auth.checkSession(req);
     if(session != undefined) {
-        render_args.setUser(args, session.user);
-        render_args.setLogin(args, true);
+        render_args.setSession(args, session);
     } else {
         res.end("Error");
     }

@@ -14,11 +14,17 @@ login.post("/", function(req, res) {
         username,
         password,
         function(data) {
-            var token_obj = { user: { username: username }};
+            var token_obj = {
+                user_id:   data["user_id_ret"],
+                username:  data["username_ret"],
+                user_type: data["user_type"]
+            };
+
             auth.startSession(res, token_obj);
             res.redirect("/");
         },
         function(error) {
+            console.log(error);
             res.redirect("/");
         });
 });

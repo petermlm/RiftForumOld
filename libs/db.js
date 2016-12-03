@@ -17,10 +17,8 @@ var db = pgp(config.database);
 
 // Checks if user and password are correct
 function checkUser(username, password, good, bad) {
-    db.one("select username from Users where Users.username = '$1#' and Users.password = '$2#';",
-           [username, password])
-        .then(good)
-        .catch(bad);
+    var query = "select * from CheckUser('$1#', '$2#')";
+    db.one(query, [username, password]).then(good).catch(bad);
 }
 
 // Get a list of users

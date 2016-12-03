@@ -1,26 +1,38 @@
-function newRenderArgs() {
-    return {
-        "page":  "index",
-        "login": false,
-        "user":  {}
-    };
-}
+module.exports = function() {
+    /*
+     * States the current page for rendering processes
+     */
+    this.page = "";
 
-function setPage(render_args, page) {
-    render_args["page"] = page;
-}
+    /*
+     * States if the page should be rendered as if there was a logged in
+     * user or not
+     */
+    this.login = false;
 
-function setLogin(render_args, login) {
-    render_args["login"] = login;
-}
+    /*
+     * User information. If the user is not logged in, this object should
+     * be {}. Else, the object should have the following fields:
+     *
+     *     {
+     *         user_id: user_id,
+     *         username: "username",
+     *         user_type: "user_type",
+     *     }
+     */
+    this.user = {};
+};
 
-function setUser(render_args, user) {
-    render_args["user"] = user;
-}
+module.exports.prototype.setPage = function(page) {
+    this.page = page;
+};
 
-module.exports = {
-    newRenderArgs: newRenderArgs,
-    setPage: setPage,
-    setLogin: setLogin,
-    setUser:  setUser
+module.exports.prototype.setLoggedinUser = function(token_object) {
+    this.login = true;
+
+    this.user = {
+        user_type: token_object.user_type,
+        username:  token_object.username,
+        user_type: token_object.user_type
+    }
 };

@@ -37,7 +37,10 @@ $$ language 'plpgsql';
 -- password
 
 create function CheckUser(varchar(25), varchar(25))
-returns table(username_ret varchar(25), user_type_ret UserType) as $$
+returns table(user_id_ret   integer,
+              username_ret  varchar(25),
+              user_type_ret UserType
+) as $$
 declare
     salt      text;
     calc_hash text;
@@ -49,7 +52,7 @@ begin
     calc_hash = crypt($2, salt);
 
     return query
-    select username, user_type
+    select user_id, username, user_type
     from Users where
         Users.username      = $1 and
         Users.password_hash = calc_hash;

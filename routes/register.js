@@ -8,15 +8,15 @@ var db = require("../libs/db");
 var router = express.Router();
 
 router.get("/", function(req, res) {
-    var args = render_args.newRenderArgs();
-    render_args.setPage(args, "register");
+    var args = render_args();
+    args.setPage("register");
 
     res.render(path.join("../views/pages", "register"), args);
 });
 
 router.post("/", function(req, res) {
-    var args = render_args.newRenderArgs();
-    render_args.setPage(args, "register");
+    var args = render_args();
+    args.setPage("register");
 
     var username  = req.body.username;
     var password  = req.body.password;
