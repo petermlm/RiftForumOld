@@ -37,18 +37,21 @@ $$ language 'plpgsql';
 -- password
 
 create function CheckUser(varchar(25), varchar(25))
-returns boolean as $$
+returns table(username_ret varchar(25), user_type_ret UserType) as $$
 declare
-    salt text;
+    salt      text;
     calc_hash text;
 
 begin
-    salt = (select password_salt from Users where username = $1);
+    salt = (select Users.password_salt
+            from Users
+            where Users.username = $1);
     calc_hash = crypt($2, salt);
 
-    return (select exists (
-                select 1 from Users where
-                    username      = $1 and
-                    password_hash = calc_hash));
+    return query
+    select username, user_type
+    from Users where
+        Users.username      = $1 and
+        Users.password_hash = calc_hash;
 end
 $$ language 'plpgsql';
