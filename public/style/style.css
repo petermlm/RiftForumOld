@@ -121,3 +121,25 @@ footer {
 {
     color: black;
 }
+
+/* ============================================================================
+ * New Message
+ * ============================================================================
+ */
+
+.new_message_forum {
+    margin-top: 25px;
+    padding: 0px 10px;
+    clear: both;
+}
+
+.new_message_forum form textarea {
+    margin-top: 10px;
+    resize: vertical;
+    height: 8em;
+}
+
+.new_message_forum form button {
+    margin-top: 10px;
+    float: right;
+}

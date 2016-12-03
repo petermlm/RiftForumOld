@@ -23,12 +23,14 @@
             </div>
         <% }); %>
 
-        <div>
+        <% if(login) { %>
+        <div class="new_message_forum">
             <form method="POST" action="/topics/<%= topic.topic_id %>">
-                <textarea name="message"></textarea>
+                <textarea class="form-control" name="message" placeholder="Message"></textarea>
                 <button type="submit" class="btn btn-default">Send</button>
             </form>
         </div>
+        <% } %>
     </main>
 
     <footer>

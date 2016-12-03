@@ -16,7 +16,7 @@ drop view if exists GetTopics cascade;
 drop view if exists GetMessages cascade;
 
 -- ----------------------------------------------------------------------------
--- Functions
+-- Auth
 -- ----------------------------------------------------------------------------
 
 drop function if exists CreateUser(
@@ -28,3 +28,9 @@ drop function if exists CreateUser(
 
 
 drop function if exists CheckUser(varchar(25), varchar(25));
+
+-- ----------------------------------------------------------------------------
+-- Topics
+-- ----------------------------------------------------------------------------
+
+drop function if exists NewTopic(integer, varchar(100), varchar(1100));

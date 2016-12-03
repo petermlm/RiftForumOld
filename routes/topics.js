@@ -28,7 +28,7 @@ router.post("/", function(req, res) {
 
     db.newTopic(user_id, title, message,
         function(topid_id) {
-            res.redirect(path.join(req.originalUrl, ""+1));
+            res.redirect(path.join(req.originalUrl, ""+topid_id["newtopic"]));
         },
         function(error) {
             console.log(error);
@@ -71,12 +71,12 @@ router.get("/:topic_id", function(req, res) {
 });
 
 router.post("/:topic_id", function(req, res) {
-    var args = render_args.newRenderArgs();
-    render_args.setPage(args, "index");
+    var args = new render_args();
+    args.setPage(args, "index");
 
-    var session = auth.checkSession(req);
-    if(session != undefined) {
-        render_args.setSession(args, session);
+    var token_object = auth.checkSession(req);
+    if(token_object != undefined) {
+        args.setLoggedinUser(token_object);
     } else {
         res.end("Error");
     }

@@ -85,27 +85,9 @@ function newMessage(topic_id, message, good, bad) {
     db.query(query, [topic_id, message]).then(good).catch(bad);
 }
 
-function newTopic(title, message, good, bad) {
-    var query =
-"with Topic as ( "
-+ "    insert into Topics(user_id, "
-+ "                       title, "
-+ "                       topic_timestamp) "
-+ "    values((select user_id from Users where username = 'Root'), "
-+ "           '$1#', "
-+ "           now()) "
-+ "    returning topic_id "
-+ ") "
-+ "insert into Messages(topic_id, "
-+ "                     user_id, "
-+ "                     message, "
-+ "                     message_timestamp) "
-+ "values((select topic_id from Topic), "
-+ "       (select user_id from Users where username = 'Root'), "
-+ "       '$2#', "
-+ "       now());";
-
-    db.query(query, [title, message]).then(good).catch(bad);
+function newTopic(user_id, title, message, good, bad) {
+    var query = "select * from NewTopic($1#, '$2#', '$3#')";
+    db.one(query, [user_id, title, message]).then(good).catch(bad);
 }
 
 module.exports = {

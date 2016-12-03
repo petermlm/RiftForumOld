@@ -21,17 +21,18 @@ login.post("/", function(req, res) {
             };
 
             auth.startSession(res, token_obj);
-            res.redirect("/");
+            res.redirect("back");
         },
         function(error) {
             console.log(error);
-            res.redirect("/");
+            res.redirect("back");
         });
 });
 
 logout.post("/", function(req, res) {
+    var return_page = req.body.return_page;
     auth.endSession(res);
-    res.redirect("/");
+    res.redirect("back");
 });
 
 module.exports = {

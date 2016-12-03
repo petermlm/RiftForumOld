@@ -9,7 +9,7 @@ var router = express.Router();
 
 router.get("/", function(req, res) {
     // Prepare render arguments
-    var args = new render_args();
+    var args = new render_args(req);
     args.setPage("index");
 
     // Check session
