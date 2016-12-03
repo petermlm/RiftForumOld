@@ -11,7 +11,6 @@ var router = express.Router();
 router.post("/", function(req, res) {
     // Prepare render arguments
     var args = new render_args();
-    args.setPage("index");
 
     // Check session
     var token_object = auth.checkSession(req);
@@ -39,7 +38,6 @@ router.post("/", function(req, res) {
 router.get("/:topic_id", function(req, res) {
     // Prepare render arguments
     var args = new render_args();
-    args.setPage("index");
 
     // Check session
     var token_object = auth.checkSession(req);
@@ -72,7 +70,6 @@ router.get("/:topic_id", function(req, res) {
 
 router.post("/:topic_id", function(req, res) {
     var args = new render_args();
-    args.setPage(args, "index");
 
     var token_object = auth.checkSession(req);
     if(token_object != undefined) {

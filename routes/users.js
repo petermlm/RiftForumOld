@@ -9,13 +9,14 @@ var db = require("../libs/db");
 var router = express.Router();
 
 router.get("/", function(req, res) {
-    var args = render_args.newRenderArgs();
-    render_args.setPage(args, "users");
+    // Prepare render arguments
+    var args = new render_args(req);
+    args.setPage("users");
 
-    var session = auth.checkSession(req);
-    if(session != undefined) {
-        render_args.setUser(args, session.user);
-        render_args.setLogin(args, true);
+    // Check session
+    var token_object = auth.checkSession(req);
+    if(token_object != undefined) {
+        args.setLoggedinUser(token_object);
     } else {
         res.end("Error");
         return;
@@ -40,6 +41,9 @@ router.get("/", function(req, res) {
 });
 
 router.get("/:username", function(req, res) {
+    res.redirect("back");
+    return;
+    // TODO
     var args = render_args.newRenderArgs();
     render_args.setPage(args, "users");
 

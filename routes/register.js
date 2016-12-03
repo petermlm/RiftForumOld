@@ -8,15 +8,29 @@ var db = require("../libs/db");
 var router = express.Router();
 
 router.get("/", function(req, res) {
-    var args = render_args();
+    // Prepare render arguments
+    var args = new render_args(req);
     args.setPage("register");
+
+    // Check session
+    var token_object = auth.checkSession(req);
+    if(token_object != undefined) {
+        res.end("Error");
+    }
 
     res.render(path.join("../views/pages", "register"), args);
 });
 
 router.post("/", function(req, res) {
-    var args = render_args();
+    // Prepare render arguments
+    var args = new render_args(req);
     args.setPage("register");
+
+    // Check session
+    var token_object = auth.checkSession(req);
+    if(token_object != undefined) {
+        res.end("Error");
+    }
 
     var username  = req.body.username;
     var password  = req.body.password;
@@ -24,9 +38,9 @@ router.post("/", function(req, res) {
 
     if(password != password2) {
         console.log("Passwords don't match");
+        res.end("Error");
     }
 
-    // res.render(path.join("../views/pages", "register"), args);
     db.newUser(username, password,
         function(data) {
             res.redirect("/");

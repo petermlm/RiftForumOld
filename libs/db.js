@@ -29,8 +29,7 @@ function usersList(good, bad) {
 
 // Creates a new user
 function newUser(username, password, good, bad) {
-    var query = "insert into Users(username, password, signature, about, user_type) "
-              + "values('$1#', '$2#', '', '', 'User')";
+    var query = "select CreateUser('$1#', '$2#', '', '', 'User')";
     db.query(query, [username, password]).then(good).catch(bad);
 }
 
