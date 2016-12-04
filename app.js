@@ -26,11 +26,12 @@ app.use(cookieParser());
  */
 
 var routes = {
-    index:    require("./routes/index"),
-    auth:     require("./routes/auth"),
-    topics:   require("./routes/topics"),
-    users:    require("./routes/users"),
-    register: require("./routes/register")
+    index:     require("./routes/index"),
+    auth:      require("./routes/auth"),
+    topics:    require("./routes/topics"),
+    users:     require("./routes/users"),
+    register:  require("./routes/register"),
+    render404: require("./routes/render404")
 };
 
 app.use("/",         routes.index);
@@ -39,6 +40,7 @@ app.use("/logout",   routes.auth.logout);
 app.use("/topics",   routes.topics);
 app.use("/users",    routes.users);
 app.use("/register", routes.register);
+app.use("*",         routes.render404);
 
 /* ============================================================================
  * Listen
