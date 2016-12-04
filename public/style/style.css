@@ -23,6 +23,14 @@ footer {
     float: right;
 }
 
+.nav_right_bad_loggin {
+    display: none;
+    float: right;
+    margin-right: 10px;
+    margin-top: 15px;
+    color: #ff0000;
+}
+
 /* ============================================================================
  * Topic list
  * ============================================================================
@@ -142,4 +150,21 @@ footer {
 .new_message_forum form button {
     margin-top: 10px;
     float: right;
+}
+
+/* ============================================================================
+ * 404
+ * ============================================================================
+ */
+
+.display404-code span {
+    font-size: 18pt;
+}
+
+.display404-text span {
+    font-size: 14pt;
+}
+
+.display404-redirecting span {
+    font-size: 18pt;
 }
