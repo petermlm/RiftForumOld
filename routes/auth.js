@@ -24,7 +24,7 @@ login.post("/", function(req, res) {
             res.redirect("back");
         },
         function(error) {
-            console.log(error);
+            auth.setBadLoginCookie(res);
             res.redirect("back");
         });
 });

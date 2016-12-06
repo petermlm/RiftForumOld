@@ -8,6 +8,14 @@ footer {
     margin-top: 80px;
 }
 
+a:link {
+    color: #cddaec;
+}
+
+a:visited {
+    color: #551a8b;
+}
+
 .nav_right {
     float: right;
     padding-top: 8px;
@@ -150,6 +158,46 @@ footer {
 .new_message_forum form button {
     margin-top: 10px;
     float: right;
+}
+
+/* ============================================================================
+ * Users List
+ * ============================================================================
+ */
+
+.users_list_item {
+    height: 45px;
+    clear: both;
+}
+
+.users_list_item_username {
+    float: left;
+    width: 1000px;
+    height: 100%;
+    display: flex;
+    justify-content: flex-right;
+    align-items: center;
+    background-color: #efefef;
+    padding: 0 19px;
+}
+
+.users_list_item_username_odd {
+    background-color: #e7e7e7 !important;
+}
+
+.users_list_item_user_type {
+    float: left;
+    width: 140px;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #afafaf;
+    padding: 0 19px;
+}
+
+.users_list_item_user_type_odd {
+    background-color: #a7a7a7 !important;
 }
 
 /* ============================================================================

@@ -24,10 +24,15 @@ function checkSession(req) {
 
 function endSession(res) {
     res.clearCookie("token");
-};
+}
+
+function setBadLoginCookie(res) {
+    res.cookie("bad_login", true);
+}
 
 module.exports = {
     startSession: startSession,
     checkSession: checkSession,
-    endSession: endSession
+    endSession: endSession,
+    setBadLoginCookie: setBadLoginCookie
 };
