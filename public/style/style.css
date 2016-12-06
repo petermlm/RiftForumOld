@@ -205,14 +205,8 @@ a:visited {
  * ============================================================================
  */
 
-.display404-code span {
-    font-size: 18pt;
-}
-
-.display404-text span {
-    font-size: 14pt;
-}
-
-.display404-redirecting span {
-    font-size: 18pt;
+.display404 div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
