@@ -15,7 +15,7 @@
         <div class="well">Topics</div>
         <% topics.forEach(function(topic) { %>
             <div class="topics_list_topic">
-                <div class="topics_list_title" onclick="location.href='/topics/<%= topic.TopicId %>';">
+                <div class="topics_list_title">
                     <a href="/topics/<%= topic.TopicId %>"><%= topic.TopicTitle %></a>
                 </div>
                 <div class="topics_list_messages"><%= topic.TopicMessageCount %> Messages</div>
