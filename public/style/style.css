@@ -8,6 +8,14 @@ footer {
     margin-top: 80px;
 }
 
+a:link {
+    color: #cddaec;
+}
+
+a:visited {
+    color: #551a8b;
+}
+
 .nav_right {
     float: right;
     padding-top: 8px;
@@ -153,18 +161,75 @@ footer {
 }
 
 /* ============================================================================
+ * Users List
+ * ============================================================================
+ */
+
+.users_list_item {
+    height: 45px;
+    clear: both;
+}
+
+.users_list_item_username {
+    float: left;
+    width: 1000px;
+    height: 100%;
+    display: flex;
+    justify-content: flex-right;
+    align-items: center;
+    background-color: #efefef;
+    padding: 0 19px;
+}
+
+.users_list_item_username_odd {
+    background-color: #e7e7e7 !important;
+}
+
+.users_list_item_user_type {
+    float: left;
+    width: 140px;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #afafaf;
+    padding: 0 19px;
+}
+
+.users_list_item_user_type_odd {
+    background-color: #a7a7a7 !important;
+}
+
+/* ============================================================================
+ * Register
+ * ============================================================================
+ */
+
+.register {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.register-container {
+    width: 50%;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+}
+
+.register-container form input {
+    margin-bottom: 20px;
+}
+
+/* ============================================================================
  * 404
  * ============================================================================
  */
 
-.display404-code span {
-    font-size: 18pt;
-}
-
-.display404-text span {
-    font-size: 14pt;
-}
-
-.display404-redirecting span {
-    font-size: 18pt;
+.display404 div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }

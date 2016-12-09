@@ -6,13 +6,17 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="/">
                 <span class="glyphicon glyphicon glyphicon-tree-deciduous"></span>
-                MiniForum
+                RiftForum
             </a>
         </div>
 
         <ul class="nav navbar-nav">
             <li <% if(page === "index")    { %> class="active" <% } %> ><a href="/">Board</a></li>
-            <li <% if(page === "users")    { %> class="active" <% } %> ><a href="/users">User List</a></li>
+
+            <% if(login) { %>
+                <li <% if(page === "users")    { %> class="active" <% } %> ><a href="/users">User List</a></li>
+            <% } %>
+
             <% if(!login) { %>
                 <li <% if(page === "register") { %> class="active" <% } %> ><a href="/register">Register</a></li>
             <% } %>
