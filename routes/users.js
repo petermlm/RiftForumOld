@@ -18,7 +18,7 @@ router.get("/", function(req, res) {
     if(token_object != undefined) {
         args.setLoggedinUser(token_object);
     } else {
-        res.end("Error");
+        res.redirect("/404");
         return;
     }
 
@@ -52,7 +52,7 @@ router.get("/:username", function(req, res) {
         render_args.setUser(args, session.user);
         render_args.setLogin(args, true);
     } else {
-        res.end("Error");
+        res.redirect("/404");
         return;
     }
 
@@ -68,7 +68,7 @@ router.get("/:username", function(req, res) {
             res.render(path.join("../views/pages", "user_info"), args);
         },
         function(error) {
-            console.log(error);
+            res.redirect("/404");
         });
 });
 
