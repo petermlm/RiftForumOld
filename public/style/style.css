@@ -142,28 +142,69 @@ nav {
  * ============================================================================
  */
 
-.messages_list {
-}
-
-.messages_list_info {
-    background: #afafaf;
-    height: 30px;
-    padding: 0 10px;
+.message_list_wrapper {
+    width: 100%;
     display: flex;
-    align-items: center;
-    border-top: 2px solid black;
+    justify-content: center;
 }
 
-.messages_list_message {
-    background: #efefef;
-    padding: 30px 10px;
-    border-bottom: 2px solid black;
+.message_list_messages {
+    width: 1030px;
 }
 
-.messages_list_info_username,
-.messages_list_info_timestamp
-{
+.message_list_message {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 0px 19px;
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
+    border-radius: 4px;
+}
+
+.message_list_author_info {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 19px;
+}
+
+.message_list_author_info_name {
+    font-size: 12pt;
+    margin-bottom: 8px;
+}
+
+.message_list_author_info_type {
+    font-size: 10pt;
+    margin-bottom: 8px;
+}
+
+.message_list_author_info_date {
+    font-size: 10pt;
+    color: gray;
+    margin-bottom: 12px;
+}
+
+.message_list_author_info_date span {
     color: black;
+}
+
+.message_list_edit_bnt a {
+    width: 100%;
+}
+
+.message_list_author_message {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-left: 1px solid #e7e7e7;
+}
+
+.message_list_author_message_text {
+    min-height: 100px;
+}
+
+.message_list_author_message_sig {
+    border-top: 1px solid #e7e7e7;
+    margin-top: 10px;
+    padding-top: 10px;
 }
 
 /* ============================================================================
@@ -171,21 +212,27 @@ nav {
  * ============================================================================
  */
 
-.new_message_forum {
-    margin-top: 25px;
-    padding: 0px 10px;
-    clear: both;
+.new_message_wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
 }
 
-.new_message_forum form textarea {
-    margin-top: 10px;
+.new_message {
+    width: 1030px;
+    width: 690px;
+}
+
+.new_message form textarea {
     resize: vertical;
     height: 8em;
 }
 
-.new_message_forum form button {
+.new_message form button {
     margin-top: 10px;
     float: right;
+    width: 100px;
 }
 
 /* ============================================================================
