@@ -1,13 +1,13 @@
 create view GetTopics as
-select Topics.topic_id as "TopicId",
-       Topics.title as "TopicTitle",
-       MessagesCountPerTopic.count as "TopicMessageCount",
-       Users.username as "TopicAuthor",
+select Topics.topic_id                 as "TopicId",
+       Topics.title                    as "TopicTitle",
+       MessagesCountPerTopic.count     as "TopicMessageCount",
+       Users.username                  as "TopicAuthor",
        MessagesAuthorPerTopic.username as "TopicLastAuthor",
        to_char(Topics.topic_timestamp, 'DD Mon, YYYY HH:MI AM')
-            as "TopicTimestamp",
+                                       as "TopicTimestamp",
        to_char(LastMessageTimestampPerTopic.timestamp, 'DD Mon, YYYY HH:MI AM')
-            as "TopicLastTimestamp"
+                                       as "TopicLastTimestamp"
 from
     -- Topics
     Topics
@@ -62,6 +62,8 @@ create view GetMessages as
 select Messages.message_id as "MessageId",
        Messages.topic_id   as "TopicId",
        Users.username      as "Username",
+       Users.signature     as "Signature",
+       Users.user_type     as "UserType",
        Messages.message    as "Message",
        to_char(Messages.message_timestamp, 'DD Mon, YYYY HH:MI AM')
             as "MessageTime"
