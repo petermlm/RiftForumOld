@@ -41,16 +41,11 @@ router.get("/", function(req, res) {
 });
 
 router.get("/:username", function(req, res) {
-    res.redirect("back");
-    return;
-    // TODO
-    var args = render_args.newRenderArgs();
-    render_args.setPage(args, "users");
+    var args = new render_args();
 
-    var session = auth.checkSession(req);
-    if(session != undefined) {
-        render_args.setUser(args, session.user);
-        render_args.setLogin(args, true);
+    var token_object = auth.checkSession(req);
+    if(token_object != undefined) {
+        args.setLoggedinUser(token_object);
     } else {
         res.redirect("/404");
         return;
@@ -59,6 +54,7 @@ router.get("/:username", function(req, res) {
     var username = req.params.username;
     db.getUserInfo(username,
         function(data) {
+            console.log(data);
             args.user = {
                 username:  data.username,
                 signature: data.signature,

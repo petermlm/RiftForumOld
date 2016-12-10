@@ -240,47 +240,18 @@ nav {
  * ============================================================================
  */
 
-.users_list_item {
-    height: 45px;
-    clear: both;
-}
-
-.users_list_item_username {
-    float: left;
-    width: 1000px;
-    height: 100%;
-    display: flex;
-    justify-content: flex-right;
-    align-items: center;
-    background-color: #efefef;
-    /* padding: 0 19px; */
-}
-
-.users_list_item_username a {
+.users_list_wrapper {
     width: 100%;
-    height: 100%;
     display: flex;
-    align-items: center;
-    padding: 0px 10px;
+    justify-content: center;
 }
 
-.users_list_item_username_odd {
-    background-color: #e7e7e7 !important;
+.users_list_wrapper table {
+    width: 1030px;
 }
 
-.users_list_item_user_type {
-    float: left;
-    width: 140px;
-    height: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    background-color: #afafaf;
-    padding: 0 19px;
-}
-
-.users_list_item_user_type_odd {
-    background-color: #a7a7a7 !important;
+.users_list_user_type {
+    text-align: right;
 }
 
 /* ============================================================================

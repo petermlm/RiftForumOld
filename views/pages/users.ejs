@@ -5,33 +5,51 @@
 <head>
     <% include ../partials/head %>
 </head>
-<body class="container">
+<body>
 
     <header>
         <% include ../partials/header %>
     </header>
 
     <main>
-        <div class="well">Users List</div>
-        <% for(var i=0; i<users.length; i++) { %>
-            <div class="users_list_item" onclick="location.href='/users/<%= users[i].username %>';">
-                <% if (i%2 == 0) { %>
-                <div class="users_list_item_username">
-                <% } else { %>
-                <div class="users_list_item_username users_list_item_username_odd">
-                <% } %>
-                    <span><%= users[i].username %></span>
-                </div>
 
-                <% if (i%2 == 0) { %>
-                <div class="users_list_item_user_type">
+    <div class="page_title_wrapper">
+        <div class="page_title">
+            <h1>Users</h1>
+        </div>
+    </div>
+
+    <div class="users_list_wrapper">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="col-sm-6">Username</th>
+                    <th class="col-sm-6 users_list_user_type">User Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0; i<users.length; i++) { %>
+
+                <% if(users[i].user_type == "Administrator") { %>
+                    <tr class="danger">
+                <% } else if(users[i].user_type == "Moderator") { %>
+                    <tr class="info">
                 <% } else { %>
-                <div class="users_list_item_user_type users_list_item_user_type_odd">
+                    <tr>
                 <% } %>
-                    <span><%= users[i].user_type %></span>
-                </div>
-            </div>
-        <% } %>
+
+                    <td>
+                        <a href="/users/<%= users[i].username %>"><%= users[i].username %></a>
+                    </td>
+                    <td class="users_list_user_type">
+                        <%= users[i].user_type %>
+                    </td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
     </main>
 
     <footer>
