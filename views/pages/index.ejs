@@ -5,34 +5,64 @@
 <head>
     <% include ../partials/head %>
 </head>
-<body class="container">
+<body>
 
     <header>
         <% include ../partials/header %>
     </header>
 
     <main>
-        <div class="well">Topics</div>
-        <% topics.forEach(function(topic) { %>
-            <div class="topics_list_topic">
-                <div class="topics_list_title" onclick="location.href='/topics/<%= topic.TopicId %>';">
-                    <a href="/topics/<%= topic.TopicId %>"><%= topic.TopicTitle %></a>
-                </div>
-                <div class="topics_list_messages"><%= topic.TopicMessageCount %> Messages</div>
-                <div class="topics_list_dates">
-                    <div>Created by
-                        <span class="topics_list_username_display"><%= topic.TopicAuthor %></span>
-                        on
-                        <span class="topics_list_timestamp_display"><%= topic.TopicTimestamp %></span>
-                    </div>
-                    <div>Last by
-                        <span class="topics_list_username_display"><%= topic.TopicLastAuthor %></span>
-                        on
-                        <span class="topics_list_timestamp_display"><%= topic.TopicLastTimestamp %></span>
-                    </div>
-                </div>
-            </div>
-        <% }); %>
+
+    <div class="page_title_wrapper">
+        <div class="page_title">
+            <h1>Topics</h1>
+        </div>
+    </div>
+
+    <div class="topics_list_wrapper">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th class="col-sm-*">Topic Title</th>
+                    <th class="col-sm-2 topics_list_messages">Messages</th>
+                    <th class="col-sm-2">Last Post</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% topics.forEach(function(topic) { %>
+                <tr>
+                    <td class="topics_list_title">
+                        <a href="/topics/<%= topic.TopicId %>"><%= topic.TopicTitle %></a><br/>
+                        <span class="topics_list_title_author">
+                            By
+                            <a href="/users/<%= topic.TopicAuthor %>" class="topics_list_title_author_hl">
+                                <%= topic.TopicAuthor %>
+                            </a>
+                            on
+                            <span class="topics_list_title_author_hl"><%= topic.TopicTimestamp %></span>
+                        </span>
+                    </td>
+                    <td class="topics_list_messages"><%= topic.TopicMessageCount %></td>
+                    <td>
+                        <span class="topics_list_last">
+                            By
+                            <span class="topics_list_last_hl">
+                                <a href="/users/<%= topic.TopicLastAuthor %>">
+                                <%= topic.TopicLastAuthor %>
+                                </a>
+                            </span>
+                            on<br/>
+                            <span class="topics_list_last_hl"><%= topic.TopicLastTimestamp %></span>
+                        </span>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="new_topic_form_wrapper">
         <% if(login) { %>
         <div class="new_topic_forum">
             <form method="POST" action="/topics">
@@ -42,6 +72,8 @@
             </form>
         </div>
         <% } %>
+    </div>
+
     </main>
 
     <footer>

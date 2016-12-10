@@ -41,16 +41,11 @@ router.get("/", function(req, res) {
 });
 
 router.get("/:username", function(req, res) {
-    res.redirect("back");
-    return;
-    // TODO
-    var args = render_args.newRenderArgs();
-    render_args.setPage(args, "users");
+    var args = new render_args();
 
-    var session = auth.checkSession(req);
-    if(session != undefined) {
-        render_args.setUser(args, session.user);
-        render_args.setLogin(args, true);
+    var token_object = auth.checkSession(req);
+    if(token_object != undefined) {
+        args.setLoggedinUser(token_object);
     } else {
         res.redirect("/404");
         return;
@@ -70,6 +65,48 @@ router.get("/:username", function(req, res) {
         function(error) {
             res.redirect("/404");
         });
+});
+
+router.post("/:username", function(req, res) {
+    var args = new render_args();
+
+    var token_object = auth.checkSession(req);
+    if(token_object != undefined) {
+        args.setLoggedinUser(token_object);
+    } else {
+        res.redirect("/404");
+        return;
+    }
+
+    if("about" in req.body) {
+        db.userUpdateAbout(
+            req.params.username,
+            req.body.about,
+            function() {
+                res.redirect(req.originalUrl);
+            },
+            function(error) {
+                console.log(error);
+                return;
+            });
+    }
+
+    else if("signature" in req.body) {
+        db.userUpdateSignature(
+            req.params.username,
+            req.body.signature,
+            function() {
+                res.redirect(req.originalUrl);
+            },
+            function(error) {
+                console.log(error);
+                return;
+            });
+    }
+
+    else {
+        res.end("Error");
+    }
 });
 
 module.exports = router;

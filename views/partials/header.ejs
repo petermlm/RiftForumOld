@@ -1,20 +1,17 @@
 <!-- views/partials/header.ejs -->
 
 <nav class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
+    <div class="container-fluid nav_wrapper">
 
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">
-                <span class="glyphicon glyphicon glyphicon-tree-deciduous"></span>
-                RiftForum
-            </a>
+            <a class="navbar-brand" href="/">RiftForum</a>
         </div>
 
         <ul class="nav navbar-nav">
-            <li <% if(page === "index")    { %> class="active" <% } %> ><a href="/">Board</a></li>
+            <li <% if(page === "index") { %> class="active" <% } %> ><a href="/">Board</a></li>
 
             <% if(login) { %>
-                <li <% if(page === "users")    { %> class="active" <% } %> ><a href="/users">User List</a></li>
+                <li <% if(page === "users") { %> class="active" <% } %> ><a href="/users">User List</a></li>
             <% } %>
 
             <% if(!login) { %>
@@ -40,5 +37,6 @@
         <div class="nav_right_bad_loggin">
             <span>Bad Username and Password</span>
         </div>
+
     </div>
 </nav>

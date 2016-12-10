@@ -1,11 +1,10 @@
 body {
-    padding-top: 50px;
     font-family: ubuntu;
 }
 
 footer {
     clear: both;
-    margin-top: 80px;
+    margin-top: 30px;
 }
 
 a:link {
@@ -16,15 +15,24 @@ a:visited {
     color: #551a8b;
 }
 
+.user_display {
+    padding-top: 8px;
+    padding-right: 14px;
+}
+
+/* ============================================================================
+ * Nav
+ * ============================================================================
+ */
+
+nav {
+    border-radius: 0 !important;
+}
+
 .nav_right {
     float: right;
     padding-top: 8px;
     color: #777;
-}
-
-.user_display {
-    padding-top: 8px;
-    padding-right: 14px;
 }
 
 .nav_right_element {
@@ -39,50 +47,66 @@ a:visited {
     color: #ff0000;
 }
 
+.nav_wrapper {
+    width: 1060px;
+}
+
+/* ============================================================================
+ * Page title
+ * ============================================================================
+ */
+
+.page_title_wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.page_title {
+    width: 1030px;
+    margin: 10px 0px;
+    border-bottom: 1px solid #e7e7e7;
+}
+
 /* ============================================================================
  * Topic list
  * ============================================================================
  */
 
-.topics_list_topic {
-    height: 50px;
-    margin-bottom: 2px;
+.topics_list_wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
-.topics_list_title {
-    float: left;
-    width: 690px;
-    height: 100%;
-    background: #efefef;
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-    cursor: pointer;
+.topics_list_wrapper table {
+    width: 1030px;
+}
+
+.topics_list_title a {
+    font-size: 12pt;
+}
+
+.topics_list_title_author {
+    color: grey;
+    font-size: 9pt;
+}
+
+.topics_list_title_author_hl {
+    color: black;
+    font-size: 9pt !important;
 }
 
 .topics_list_messages {
-    float: left;
-    width: 150px;
-    height: 100%;
-    background: #afafaf;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
+    vertical-align: middle !important;
 }
 
-.topics_list_dates {
-    float: left;
-    width: 300px;
-    height: 100%;
-    background: #efefef;
-    padding: 5px 10px;
+.topics_list_last {
     color: grey;
-    text-align: right;
 }
 
-.topics_list_username_display,
-.topics_list_timestamp_display
-{
+.topics_list_last_hl {
     color: black;
 }
 
@@ -91,11 +115,16 @@ a:visited {
  * ============================================================================
  */
 
+.new_topic_form_wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .new_topic_forum {
     margin-top: 25px;
     padding: 0px 10px;
     width: 690px;
-    clear: both;
 }
 
 .new_topic_forum form textarea {
@@ -107,6 +136,7 @@ a:visited {
 .new_topic_forum form button {
     margin-top: 10px;
     float: right;
+    width: 100px;
 }
 
 /* ============================================================================
@@ -114,28 +144,69 @@ a:visited {
  * ============================================================================
  */
 
-.messages_list {
-}
-
-.messages_list_info {
-    background: #afafaf;
-    height: 30px;
-    padding: 0 10px;
+.message_list_wrapper {
+    width: 100%;
     display: flex;
-    align-items: center;
-    border-top: 2px solid black;
+    justify-content: center;
 }
 
-.messages_list_message {
-    background: #efefef;
-    padding: 30px 10px;
-    border-bottom: 2px solid black;
+.message_list_messages {
+    width: 1030px;
 }
 
-.messages_list_info_username,
-.messages_list_info_timestamp
-{
+.message_list_message {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 0px 19px;
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
+    border-radius: 4px;
+}
+
+.message_list_author_info {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 19px;
+}
+
+.message_list_author_info_name {
+    font-size: 12pt;
+    margin-bottom: 8px;
+}
+
+.message_list_author_info_type {
+    font-size: 10pt;
+    margin-bottom: 8px;
+}
+
+.message_list_author_info_date {
+    font-size: 10pt;
+    color: gray;
+    margin-bottom: 12px;
+}
+
+.message_list_author_info_date span {
     color: black;
+}
+
+.message_list_edit_bnt a {
+    width: 100%;
+}
+
+.message_list_author_message {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-left: 1px solid #e7e7e7;
+}
+
+.message_list_author_message_text {
+    min-height: 100px;
+}
+
+.message_list_author_message_sig {
+    border-top: 1px solid #e7e7e7;
+    margin-top: 10px;
+    padding-top: 10px;
 }
 
 /* ============================================================================
@@ -143,21 +214,27 @@ a:visited {
  * ============================================================================
  */
 
-.new_message_forum {
-    margin-top: 25px;
-    padding: 0px 10px;
-    clear: both;
+.new_message_wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
 }
 
-.new_message_forum form textarea {
-    margin-top: 10px;
+.new_message {
+    width: 1030px;
+    width: 690px;
+}
+
+.new_message form textarea {
     resize: vertical;
     height: 8em;
 }
 
-.new_message_forum form button {
+.new_message form button {
     margin-top: 10px;
     float: right;
+    width: 100px;
 }
 
 /* ============================================================================
@@ -165,39 +242,77 @@ a:visited {
  * ============================================================================
  */
 
-.users_list_item {
-    height: 45px;
-    clear: both;
-}
-
-.users_list_item_username {
-    float: left;
-    width: 1000px;
-    height: 100%;
+.users_list_wrapper {
+    width: 100%;
     display: flex;
-    justify-content: flex-right;
-    align-items: center;
-    background-color: #efefef;
-    padding: 0 19px;
+    justify-content: center;
 }
 
-.users_list_item_username_odd {
-    background-color: #e7e7e7 !important;
+.users_list_wrapper table {
+    width: 1030px;
 }
 
-.users_list_item_user_type {
-    float: left;
-    width: 140px;
-    height: 100%;
+.users_list_user_type {
+    text-align: right;
+}
+
+/* ============================================================================
+ * User Info
+ * ============================================================================
+ */
+
+.user_info_wrapper {
+    width: 100%;
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    background-color: #afafaf;
-    padding: 0 19px;
+    justify-content: center;
 }
 
-.users_list_item_user_type_odd {
-    background-color: #a7a7a7 !important;
+.user_info_user_type {
+    width: 1030px;
+    margin-bottom: 20px;
+}
+
+.user_info_part {
+    width: 1030px;
+    background-color: #f5f5f5;
+    padding-top: 0;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+}
+
+.user_info_part textarea {
+    /* margin-top: 10px; */
+    resize: vertical;
+    height: 8em;
+}
+
+.user_info_part button {
+    margin-top: 10px;
+    margin-left: 10px;
+    float: right;
+    width: 100px;
+}
+
+.user_info_part h2 {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #8c8c8c;
+    margin-bottom: 25px;
+}
+
+.user_info_part h2 a {
+    font-size: 10pt;
+}
+
+#user_info_about_form {
+    display: none;
+}
+
+#user_info_signature_form {
+    display: none;
 }
 
 /* ============================================================================

@@ -60,11 +60,11 @@ router.get("/:topic_id", function(req, res) {
                     res.render(path.join("../views/pages", "topic"), args);
                 },
                 function(error) {
-                    res.end("Error");
+                    res.redirect("/404");
                 });
         },
         function(error) {
-            res.end("Error");
+            res.redirect("/404");
         });
 });
 
