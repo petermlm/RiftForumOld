@@ -54,7 +54,6 @@ router.get("/:username", function(req, res) {
     var username = req.params.username;
     db.getUserInfo(username,
         function(data) {
-            console.log(data);
             args.user = {
                 username:  data.username,
                 signature: data.signature,
@@ -66,6 +65,48 @@ router.get("/:username", function(req, res) {
         function(error) {
             res.redirect("/404");
         });
+});
+
+router.post("/:username", function(req, res) {
+    var args = new render_args();
+
+    var token_object = auth.checkSession(req);
+    if(token_object != undefined) {
+        args.setLoggedinUser(token_object);
+    } else {
+        res.redirect("/404");
+        return;
+    }
+
+    if("about" in req.body) {
+        db.userUpdateAbout(
+            req.params.username,
+            req.body.about,
+            function() {
+                res.redirect(req.originalUrl);
+            },
+            function(error) {
+                console.log(error);
+                return;
+            });
+    }
+
+    else if("signature" in req.body) {
+        db.userUpdateSignature(
+            req.params.username,
+            req.body.signature,
+            function() {
+                res.redirect(req.originalUrl);
+            },
+            function(error) {
+                console.log(error);
+                return;
+            });
+    }
+
+    else {
+        res.end("Error");
+    }
 });
 
 module.exports = router;

@@ -284,6 +284,19 @@ nav {
     border-radius: 4px;
 }
 
+.user_info_part textarea {
+    /* margin-top: 10px; */
+    resize: vertical;
+    height: 8em;
+}
+
+.user_info_part button {
+    margin-top: 10px;
+    margin-left: 10px;
+    float: right;
+    width: 100px;
+}
+
 .user_info_part h2 {
     padding-bottom: 5px;
     border-bottom: 1px solid #8c8c8c;
@@ -292,6 +305,14 @@ nav {
 
 .user_info_part h2 a {
     font-size: 10pt;
+}
+
+#user_info_about_form {
+    display: none;
+}
+
+#user_info_signature_form {
+    display: none;
 }
 
 /* ============================================================================

@@ -41,6 +41,16 @@ function getUserInfo(username, good, bad) {
     db.one(query, [username]).then(good).catch(bad);
 }
 
+function userUpdateAbout(username, new_about, good, bad) {
+    var query = "select UpdateAbout('$1#', '$2#')";
+    db.query(query, [username, new_about]).then(good).catch(bad);
+}
+
+function userUpdateSignature(username, new_signature, good, bad) {
+    var query = "select UpdateSignature('$1#', '$2#')";
+    db.query(query, [username, new_signature]).then(good).catch(bad);
+}
+
 /* ============================================================================
  * Topics and Messages
  * ============================================================================
@@ -85,10 +95,12 @@ function newTopic(user_id, title, message, good, bad) {
 
 module.exports = {
     // User operations
-    checkUser:    checkUser,
-    usersList:    usersList,
-    newUser:      newUser,
-    getUserInfo:  getUserInfo,
+    checkUser:           checkUser,
+    usersList:           usersList,
+    newUser:             newUser,
+    getUserInfo:         getUserInfo,
+    userUpdateAbout:     userUpdateAbout,
+    userUpdateSignature: userUpdateSignature,
 
     // Topics and Messages
     getTopics:    getTopics,
