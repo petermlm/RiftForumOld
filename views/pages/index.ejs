@@ -35,7 +35,9 @@
                         <a href="/topics/<%= topic.TopicId %>"><%= topic.TopicTitle %></a><br/>
                         <span class="topics_list_title_author">
                             By
-                            <span class="topics_list_title_author_hl"><%= topic.TopicAuthor %></span>
+                            <a href="/users/<%= topic.TopicAuthor %>" class="topics_list_title_author_hl">
+                                <%= topic.TopicAuthor %>
+                            </a>
                             on
                             <span class="topics_list_title_author_hl"><%= topic.TopicTimestamp %></span>
                         </span>
@@ -44,7 +46,11 @@
                     <td>
                         <span class="topics_list_last">
                             By
-                            <span class="topics_list_last_hl"><%= topic.TopicLastAuthor %></span>
+                            <span class="topics_list_last_hl">
+                                <a href="/users/<%= topic.TopicLastAuthor %>">
+                                <%= topic.TopicLastAuthor %>
+                                </a>
+                            </span>
                             on<br/>
                             <span class="topics_list_last_hl"><%= topic.TopicLastTimestamp %></span>
                         </span>

@@ -94,10 +94,12 @@ nav {
 
 .topics_list_title_author_hl {
     color: black;
+    font-size: 9pt !important;
 }
 
 .topics_list_messages {
     text-align: center;
+    vertical-align: middle !important;
 }
 
 .topics_list_last {
@@ -252,6 +254,44 @@ nav {
 
 .users_list_user_type {
     text-align: right;
+}
+
+/* ============================================================================
+ * User Info
+ * ============================================================================
+ */
+
+.user_info_wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.user_info_user_type {
+    width: 1030px;
+    margin-bottom: 20px;
+}
+
+.user_info_part {
+    width: 1030px;
+    background-color: #f5f5f5;
+    padding-top: 0;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+}
+
+.user_info_part h2 {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #8c8c8c;
+    margin-bottom: 25px;
+}
+
+.user_info_part h2 a {
+    font-size: 10pt;
 }
 
 /* ============================================================================

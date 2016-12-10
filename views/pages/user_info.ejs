@@ -5,14 +5,38 @@
 <head>
     <% include ../partials/head %>
 </head>
-<body class="container">
+<body>
 
     <header>
         <% include ../partials/header %>
     </header>
 
     <main>
-        <div class="well"><%= user.username %></div>
+        <div class="page_title_wrapper">
+            <div class="page_title">
+                <h1><%= user.username %></h1>
+            </div>
+        </div>
+
+        <div class="user_info_wrapper">
+            <div class="user_info_user_type">
+                <%= user.user_type %>
+            </div>
+        </div>
+
+        <div class="user_info_wrapper">
+            <div class="user_info_part">
+                <h2>About <a id="edit_user_info_about" href="#">(Edit)</a></h2>
+                <%= user.about %>
+            </div>
+        </div>
+
+        <div class="user_info_wrapper">
+            <div class="user_info_part">
+                <h2>Signature <a id="edit_user_info_signature" href="#">(Edit)</a></h2>
+                <%= user.signature %>
+            </div>
+        </div>
     </main>
 
     <footer>

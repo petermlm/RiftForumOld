@@ -25,7 +25,9 @@
             <div class="container message_list_message">
                 <div class="row">
                     <div class="col-sm-2 message_list_author_info">
-                        <div class="message_list_author_info_name"><%= message.Username %></div>
+                        <div class="message_list_author_info_name">
+                            <a href="/users/<%= message.Username %>"><%= message.Username %></a>
+                        </div>
                         <div class="message_list_author_info_type"><%= message.UserType %></div>
                         <div class="message_list_author_info_date">
                             Posted on<br/>
