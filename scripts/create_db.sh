@@ -1,11 +1,13 @@
 #!/bin/bash
 
+. config.sh
+
 # Create things
-psql riftforum_dev < ../database/create.sql
-psql riftforum_dev < ../database/views.sql
-psql riftforum_dev < ../database/auth.sql
-psql riftforum_dev < ../database/topics.sql
-psql riftforum_dev < ../database/users.sql
+psql $db_name < ../database/create.sql
+psql $db_name < ../database/views.sql
+psql $db_name < ../database/auth.sql
+psql $db_name < ../database/topics.sql
+psql $db_name < ../database/users.sql
 
 # Insert default data
-psql riftforum_dev < ../database/inserts.sql
+psql $db_name < ../database/inserts.sql
