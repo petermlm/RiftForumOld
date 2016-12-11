@@ -52,21 +52,48 @@ router.get("/:username", function(req, res) {
     }
 
     var username = req.params.username;
-    db.getUserInfo(username,
-        function(data) {
-            args.user = {
-                username:   data.username,
-                about:      data.about,
-                aboutF:     util.newLines2HTML(data.about),
-                signature:  data.signature,
-                signatureF: util.newLines2HTML(data.signature),
-                user_type:  data.user_type
-            };
-            res.render(path.join("../views/pages", "user_info"), args);
-        },
-        function(error) {
-            res.redirect("/404");
-        });
+
+    // If the user is the same, render page with edition options
+    if(token_object["username"] == username) {
+        args.enable_edition = true;
+
+        db.getUserInfo(username,
+            function(data) {
+                args.user = {
+                    username:   data.username,
+                    about:      data.about,
+                    aboutF:     util.newLines2HTML(data.about),
+                    signature:  data.signature,
+                    signatureF: util.newLines2HTML(data.signature),
+                    user_type:  data.user_type
+                };
+                res.render(path.join("../views/pages", "user_info"), args);
+            },
+            function(error) {
+                res.redirect("/404");
+            });
+    }
+
+    // If not, render without
+    else {
+        args.enable_edition = false;
+
+        db.getUserInfo(username,
+            function(data) {
+                args.user = {
+                    username:   data.username,
+                    // about:      data.about,
+                    aboutF:     util.newLines2HTML(data.about),
+                    signature:  data.signature,
+                    signatureF: util.newLines2HTML(data.signature),
+                    user_type:  data.user_type
+                };
+                res.render(path.join("../views/pages", "user_info"), args);
+            },
+            function(error) {
+                res.redirect("/404");
+            });
+    }
 });
 
 router.post("/:username", function(req, res) {
