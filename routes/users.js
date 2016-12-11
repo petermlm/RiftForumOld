@@ -1,10 +1,10 @@
 var express = require("express");
 var path    = require("path");
 
-var auth = require("../libs/auth");
-// var users = require("../libs/users");
+var auth        = require("../libs/auth");
 var render_args = require("../libs/render_args");
-var db = require("../libs/db");
+var db          = require("../libs/db");
+var util        = require("../libs/util");
 
 var router = express.Router();
 
@@ -55,10 +55,12 @@ router.get("/:username", function(req, res) {
     db.getUserInfo(username,
         function(data) {
             args.user = {
-                username:  data.username,
-                signature: data.signature,
-                about:     data.about,
-                user_type: data.user_type
+                username:   data.username,
+                about:      data.about,
+                aboutF:     util.newLines2HTML(data.about),
+                signature:  data.signature,
+                signatureF: util.newLines2HTML(data.signature),
+                user_type:  data.user_type
             };
             res.render(path.join("../views/pages", "user_info"), args);
         },

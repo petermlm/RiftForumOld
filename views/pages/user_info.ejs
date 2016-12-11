@@ -27,7 +27,7 @@
         <div class="user_info_wrapper">
             <div class="user_info_part">
                 <h2>About <a id="edit_user_info_about" href="#">(Edit)</a></h2>
-                <div id="user_info_about_text"><%= user.about %></div>
+                <div id="user_info_about_text"><%- user.aboutF %></div>
                 <div id="user_info_about_form">
                     <form method="POST" action="/users/<%= user.username %>">
                     <textarea class="form-control" name="about" placeholder="About"><%= user.about %></textarea>
@@ -41,7 +41,7 @@
         <div class="user_info_wrapper">
             <div class="user_info_part">
                 <h2>Signature <a id="edit_user_info_signature" href="#">(Edit)</a></h2>
-                <div id="user_info_signature_text"><%= user.signature %></div>
+                <div id="user_info_signature_text"><%- user.signatureF %></div>
                 <div id="user_info_signature_form">
                     <form method="POST" action="/users/<%= user.username %>">
                     <textarea class="form-control" name="signature" placeholder="About"><%= user.signature %></textarea>
