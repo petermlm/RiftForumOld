@@ -1,3 +1,5 @@
 #!/bin/bash
 
-psql riftforum_dev < ../database/selects.sql
+. config.sh
+
+psql $db_name < ../database/selects.sql
