@@ -14,7 +14,8 @@ create table Users (
     password_salt text not null,
     signature     varchar(100),
     about         varchar(500),
-    user_type     UserType
+    user_type     UserType,
+    created       timestamp
 );
 
 -- ----------------------------------------------------------------------------

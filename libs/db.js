@@ -23,7 +23,7 @@ function checkUser(username, password, good, bad) {
 
 // Get a list of users
 function usersList(good, bad) {
-    var query = "select username, user_type from Users";
+    var query = "select username, user_type from Users order by created";
     db.query(query).then(good).catch(bad);
 }
 
