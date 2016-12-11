@@ -14,13 +14,13 @@
     <main>
         <div class="page_title_wrapper">
             <div class="page_title">
-                <h1><%= user.username %></h1>
+                <h1><%= user_info.username %></h1>
             </div>
         </div>
 
         <div class="user_info_wrapper">
             <div class="user_info_user_type">
-                <%= user.user_type %>
+                <%= user_info.user_type %>
             </div>
         </div>
 
@@ -31,11 +31,11 @@
                     <a id="edit_user_info_about" href="#">(Edit)</a>
                     <% } %>
                 </h2>
-                <div id="user_info_about_text"><%- user.aboutF %></div>
+                <div id="user_info_about_text"><%- user_info.aboutF %></div>
                 <% if(enable_edition) { %>
                 <div id="user_info_about_form">
-                    <form method="POST" action="/users/<%= user.username %>">
-                    <textarea class="form-control" name="about" placeholder="About"><%= user.about %></textarea>
+                    <form method="POST" action="/users/<%= user_info.username %>">
+                    <textarea class="form-control" name="about" placeholder="About"><%= user_info.about %></textarea>
                     <button type="submit" class="btn btn-default">Send</button>
                     <button type="button" id="user_info_about_cancel" class="btn btn-default">Cancel</button>
                     </form>
@@ -51,11 +51,11 @@
                     <a id="edit_user_info_signature" href="#">(Edit)</a>
                     <% } %>
                 </h2>
-                <div id="user_info_signature_text"><%- user.signatureF %></div>
+                <div id="user_info_signature_text"><%- user_info.signatureF %></div>
                 <% if(enable_edition) { %>
                 <div id="user_info_signature_form">
-                    <form method="POST" action="/users/<%= user.username %>">
-                    <textarea class="form-control" name="signature" placeholder="About"><%= user.signature %></textarea>
+                    <form method="POST" action="/users/<%= user_info.username %>">
+                    <textarea class="form-control" name="signature" placeholder="About"><%= user_info.signature %></textarea>
                     <button type="submit" class="btn btn-default">Send</button>
                     <button type="button" id="user_info_signature_cancel" class="btn btn-default">Cancel</button>
                     </form>

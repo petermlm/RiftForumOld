@@ -17,7 +17,7 @@ login.post("/", function(req, res) {
             var token_obj = {
                 user_id:   data["user_id_ret"],
                 username:  data["username_ret"],
-                user_type: data["user_type"]
+                user_type: data["user_type_ret"]
             };
 
             auth.startSession(res, token_obj);

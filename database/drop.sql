@@ -41,3 +41,4 @@ drop function if exists NewTopic(integer, varchar(100), varchar(1100));
 
 drop function if exists UpdateAbout(varchar(25), varchar(500));
 drop function if exists UpdateSignature(varchar(25), varchar(100));
+drop function if exists canEdit(varchar(25), varchar(25));

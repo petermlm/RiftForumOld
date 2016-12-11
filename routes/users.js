@@ -52,48 +52,54 @@ router.get("/:username", function(req, res) {
     }
 
     var username = req.params.username;
+    var username_token = token_object["username"];
 
     // If the user is the same, render page with edition options
-    if(token_object["username"] == username) {
-        args.enable_edition = true;
+    db.canEdit(username_token, username,
+        function(data) {
+            if(data[0]["canedit"]) {
+                args.enable_edition = true;
 
-        db.getUserInfo(username,
-            function(data) {
-                args.user = {
-                    username:   data.username,
-                    about:      data.about,
-                    aboutF:     util.newLines2HTML(data.about),
-                    signature:  data.signature,
-                    signatureF: util.newLines2HTML(data.signature),
-                    user_type:  data.user_type
-                };
-                res.render(path.join("../views/pages", "user_info"), args);
-            },
-            function(error) {
-                res.redirect("/404");
-            });
-    }
+                db.getUserInfo(username,
+                    function(data) {
+                        args.user_info = {
+                            username:   data.username,
+                            about:      data.about,
+                            aboutF:     util.newLines2HTML(data.about),
+                            signature:  data.signature,
+                            signatureF: util.newLines2HTML(data.signature),
+                            user_type:  data.user_type
+                        };
+                        res.render(path.join("../views/pages", "user_info"), args);
+                    },
+                    function(error) {
+                        res.redirect("/404");
+                    });
+            }
 
-    // If not, render without
-    else {
-        args.enable_edition = false;
+            // If not, render without
+            else {
+                args.enable_edition = false;
 
-        db.getUserInfo(username,
-            function(data) {
-                args.user = {
-                    username:   data.username,
-                    // about:      data.about,
-                    aboutF:     util.newLines2HTML(data.about),
-                    signature:  data.signature,
-                    signatureF: util.newLines2HTML(data.signature),
-                    user_type:  data.user_type
-                };
-                res.render(path.join("../views/pages", "user_info"), args);
-            },
-            function(error) {
-                res.redirect("/404");
-            });
-    }
+                db.getUserInfo(username,
+                    function(data) {
+                        args.user_info = {
+                            username:   data.username,
+                            // about:      data.about,
+                            aboutF:     util.newLines2HTML(data.about),
+                            signature:  data.signature,
+                            signatureF: util.newLines2HTML(data.signature),
+                            user_type:  data.user_type
+                        };
+                        res.render(path.join("../views/pages", "user_info"), args);
+                    },
+                    function(error) {
+                        res.redirect("/404");
+                    });
+            }
+        },
+        function(error) {
+        });
 });
 
 router.post("/:username", function(req, res) {
