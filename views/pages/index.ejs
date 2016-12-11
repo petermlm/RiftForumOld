@@ -1,0 +1,83 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body>
+
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>
+
+    <div class="page_title_wrapper">
+        <div class="page_title">
+            <h1>Topics</h1>
+        </div>
+    </div>
+
+    <div class="topics_list_wrapper">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th class="col-sm-*">Topic Title</th>
+                    <th class="col-sm-2 topics_list_messages">Messages</th>
+                    <th class="col-sm-2">Last Post</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% topics.forEach(function(topic) { %>
+                <tr>
+                    <td class="topics_list_title">
+                        <a href="/topics/<%= topic.TopicId %>"><%= topic.TopicTitle %></a><br/>
+                        <span class="topics_list_title_author">
+                            By
+                            <a href="/users/<%= topic.TopicAuthor %>" class="topics_list_title_author_hl">
+                                <%= topic.TopicAuthor %>
+                            </a>
+                            on
+                            <span class="topics_list_title_author_hl"><%= topic.TopicTimestamp %></span>
+                        </span>
+                    </td>
+                    <td class="topics_list_messages"><%= topic.TopicMessageCount %></td>
+                    <td>
+                        <span class="topics_list_last">
+                            By
+                            <span class="topics_list_last_hl">
+                                <a href="/users/<%= topic.TopicLastAuthor %>">
+                                <%= topic.TopicLastAuthor %>
+                                </a>
+                            </span>
+                            on<br/>
+                            <span class="topics_list_last_hl"><%= topic.TopicLastTimestamp %></span>
+                        </span>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="new_topic_form_wrapper">
+        <% if(login) { %>
+        <div class="new_topic_forum">
+            <form method="POST" action="/topics">
+                <input class="form-control" name="title" placeholder="Title" type="text" />
+                <textarea class="form-control" name="message" placeholder="Message"></textarea>
+                <button type="submit" class="btn btn-default">Send</button>
+            </form>
+        </div>
+        <% } %>
+    </div>
+
+    </main>
+
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+</body>
+</html>

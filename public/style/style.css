@@ -1,0 +1,346 @@
+body {
+    font-family: Ubuntu, sans-serif;
+}
+
+footer {
+    clear: both;
+    margin-top: 30px;
+}
+
+a:visited {
+    color: #551a8b;
+}
+
+.user_display {
+    padding-top: 8px;
+    padding-right: 14px;
+}
+
+/* ============================================================================
+ * Nav
+ * ============================================================================
+ */
+
+nav {
+    border-radius: 0 !important;
+}
+
+.nav_right {
+    float: right;
+    padding-top: 8px;
+    color: #777;
+}
+
+.nav_right_element {
+    float: right;
+}
+
+.nav_right_bad_loggin {
+    display: none;
+    float: right;
+    margin-right: 10px;
+    margin-top: 15px;
+    color: #ff0000;
+}
+
+.nav_wrapper {
+    width: 1060px;
+}
+
+/* ============================================================================
+ * Page title
+ * ============================================================================
+ */
+
+.page_title_wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.page_title {
+    width: 1030px;
+    margin: 10px 0px;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+/* ============================================================================
+ * Topic list
+ * ============================================================================
+ */
+
+.topics_list_wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.topics_list_wrapper table {
+    width: 1030px;
+}
+
+.topics_list_title a {
+    font-size: 12pt;
+}
+
+.topics_list_title_author {
+    color: grey;
+    font-size: 9pt;
+}
+
+.topics_list_title_author_hl {
+    color: black;
+    font-size: 9pt !important;
+}
+
+.topics_list_messages {
+    text-align: center;
+    vertical-align: middle !important;
+}
+
+.topics_list_last {
+    color: grey;
+}
+
+.topics_list_last_hl {
+    color: black;
+}
+
+/* ============================================================================
+ * New Topic
+ * ============================================================================
+ */
+
+.new_topic_form_wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.new_topic_forum {
+    margin-top: 25px;
+    padding: 0px 10px;
+    width: 690px;
+}
+
+.new_topic_forum form textarea {
+    margin-top: 10px;
+    resize: vertical;
+    height: 8em;
+}
+
+.new_topic_forum form button {
+    margin-top: 10px;
+    float: right;
+    width: 100px;
+}
+
+/* ============================================================================
+ * Messages List
+ * ============================================================================
+ */
+
+.message_list_wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.message_list_messages {
+    width: 1030px;
+}
+
+.message_list_message {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 0px 19px;
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
+    border-radius: 4px;
+}
+
+.message_list_author_info {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 19px;
+}
+
+.message_list_author_info_name {
+    font-size: 12pt;
+    margin-bottom: 8px;
+}
+
+.message_list_author_info_type {
+    font-size: 10pt;
+    margin-bottom: 8px;
+}
+
+.message_list_author_info_date {
+    font-size: 10pt;
+    color: gray;
+    margin-bottom: 12px;
+}
+
+.message_list_author_info_date span {
+    color: black;
+}
+
+.message_list_edit_bnt a {
+    width: 100%;
+}
+
+.message_list_author_message {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-left: 1px solid #e7e7e7;
+}
+
+.message_list_author_message_text {
+    min-height: 100px;
+}
+
+.message_list_author_message_sig {
+    border-top: 1px solid #e7e7e7;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+/* ============================================================================
+ * New Message
+ * ============================================================================
+ */
+
+.new_message_wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.new_message {
+    width: 1030px;
+    width: 690px;
+}
+
+.new_message form textarea {
+    resize: vertical;
+    height: 8em;
+}
+
+.new_message form button {
+    margin-top: 10px;
+    float: right;
+    width: 100px;
+}
+
+/* ============================================================================
+ * Users List
+ * ============================================================================
+ */
+
+.users_list_wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.users_list_wrapper table {
+    width: 1030px;
+}
+
+.users_list_user_type {
+    text-align: right;
+}
+
+/* ============================================================================
+ * User Info
+ * ============================================================================
+ */
+
+.user_info_wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.user_info_user_type {
+    width: 1030px;
+    margin-bottom: 20px;
+}
+
+.user_info_part {
+    width: 1030px;
+    background-color: #f5f5f5;
+    padding-top: 0;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+}
+
+.user_info_part textarea {
+    /* margin-top: 10px; */
+    resize: vertical;
+    height: 8em;
+}
+
+.user_info_part button {
+    margin-top: 10px;
+    margin-left: 10px;
+    float: right;
+    width: 100px;
+}
+
+.user_info_part h2 {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #8c8c8c;
+    margin-bottom: 25px;
+}
+
+.user_info_part h2 a {
+    font-size: 10pt;
+}
+
+#user_info_about_form {
+    display: none;
+}
+
+#user_info_signature_form {
+    display: none;
+}
+
+/* ============================================================================
+ * Register
+ * ============================================================================
+ */
+
+.register {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.register-container {
+    width: 50%;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+}
+
+.register-container form input {
+    margin-bottom: 20px;
+}
+
+/* ============================================================================
+ * 404
+ * ============================================================================
+ */
+
+.display404 div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
