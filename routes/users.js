@@ -1,10 +1,10 @@
 var express = require("express");
 var path    = require("path");
 
-var auth = require("../libs/auth");
-// var users = require("../libs/users");
+var auth        = require("../libs/auth");
 var render_args = require("../libs/render_args");
-var db = require("../libs/db");
+var db          = require("../libs/db");
+var util        = require("../libs/util");
 
 var router = express.Router();
 
@@ -52,18 +52,53 @@ router.get("/:username", function(req, res) {
     }
 
     var username = req.params.username;
-    db.getUserInfo(username,
+    var username_token = token_object["username"];
+
+    // If the user is the same, render page with edition options
+    db.canEdit(username_token, username,
         function(data) {
-            args.user = {
-                username:  data.username,
-                signature: data.signature,
-                about:     data.about,
-                user_type: data.user_type
-            };
-            res.render(path.join("../views/pages", "user_info"), args);
+            if(data[0]["canedit"]) {
+                args.enable_edition = true;
+
+                db.getUserInfo(username,
+                    function(data) {
+                        args.user_info = {
+                            username:   data.username,
+                            about:      data.about,
+                            aboutF:     util.newLines2HTML(data.about),
+                            signature:  data.signature,
+                            signatureF: util.newLines2HTML(data.signature),
+                            user_type:  data.user_type
+                        };
+                        res.render(path.join("../views/pages", "user_info"), args);
+                    },
+                    function(error) {
+                        res.redirect("/404");
+                    });
+            }
+
+            // If not, render without
+            else {
+                args.enable_edition = false;
+
+                db.getUserInfo(username,
+                    function(data) {
+                        args.user_info = {
+                            username:   data.username,
+                            // about:      data.about,
+                            aboutF:     util.newLines2HTML(data.about),
+                            signature:  data.signature,
+                            signatureF: util.newLines2HTML(data.signature),
+                            user_type:  data.user_type
+                        };
+                        res.render(path.join("../views/pages", "user_info"), args);
+                    },
+                    function(error) {
+                        res.redirect("/404");
+                    });
+            }
         },
         function(error) {
-            res.redirect("/404");
         });
 });
 

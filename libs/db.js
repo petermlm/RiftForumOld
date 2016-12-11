@@ -23,7 +23,7 @@ function checkUser(username, password, good, bad) {
 
 // Get a list of users
 function usersList(good, bad) {
-    var query = "select username, user_type from Users";
+    var query = "select username, user_type from Users order by created";
     db.query(query).then(good).catch(bad);
 }
 
@@ -41,14 +41,22 @@ function getUserInfo(username, good, bad) {
     db.one(query, [username]).then(good).catch(bad);
 }
 
+// Update user's about
 function userUpdateAbout(username, new_about, good, bad) {
     var query = "select UpdateAbout('$1#', '$2#')";
     db.query(query, [username, new_about]).then(good).catch(bad);
 }
 
+// Update user's signature
 function userUpdateSignature(username, new_signature, good, bad) {
     var query = "select UpdateSignature('$1#', '$2#')";
     db.query(query, [username, new_signature]).then(good).catch(bad);
+}
+
+// Check if user can edit things of another user
+function canEdit(username1, username2, good, bad) {
+    var query = "select canEdit('$1#', '$2#')";
+    db.query(query, [username1, username2]).then(good).catch(bad);
 }
 
 /* ============================================================================
@@ -101,6 +109,7 @@ module.exports = {
     getUserInfo:         getUserInfo,
     userUpdateAbout:     userUpdateAbout,
     userUpdateSignature: userUpdateSignature,
+    canEdit:             canEdit,
 
     // Topics and Messages
     getTopics:    getTopics,

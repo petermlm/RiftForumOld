@@ -1,10 +1,11 @@
 var express = require("express");
 var path    = require("path");
 
-var auth = require("../libs/auth");
-var topics = require("../libs/topics");
+var auth        = require("../libs/auth");
+var topics      = require("../libs/topics");
 var render_args = require("../libs/render_args");
-var db = require("../libs/db");
+var db          = require("../libs/db");
+var util        = require("../libs/util");
 
 var router = express.Router();
 
@@ -57,6 +58,12 @@ router.get("/:topic_id", function(req, res) {
             db.getMessages(topic_id,
                 function(data) {
                     args.topic.messages = data;
+
+                    args.topic.messages.forEach(function(ele) {
+                        ele["MessageF"] = util.newLines2HTML(ele["Message"]);
+                        ele["SignatureF"] = util.newLines2HTML(ele["Signature"]);
+                    });
+
                     res.render(path.join("../views/pages", "topic"), args);
                 },
                 function(error) {
