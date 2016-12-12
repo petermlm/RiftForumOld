@@ -60,8 +60,8 @@ router.get("/:topic_id", function(req, res) {
                     args.topic.messages = data;
 
                     args.topic.messages.forEach(function(ele) {
-                        ele["MessageF"] = util.newLines2HTML(ele["Message"]);
-                        ele["SignatureF"] = util.newLines2HTML(ele["Signature"]);
+                        ele["MessageF"] = util.formatOutput(ele["Message"]);
+                        ele["SignatureF"] = util.formatOutput(ele["Signature"]);
                     });
 
                     res.render(path.join("../views/pages", "topic"), args);
