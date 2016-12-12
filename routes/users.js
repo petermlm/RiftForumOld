@@ -65,9 +65,9 @@ router.get("/:username", function(req, res) {
                         args.user_info = {
                             username:   data.username,
                             about:      data.about,
-                            aboutF:     util.newLines2HTML(data.about),
+                            aboutF:     util.formatOutput(data.about),
                             signature:  data.signature,
-                            signatureF: util.newLines2HTML(data.signature),
+                            signatureF: util.formatOutput(data.signature),
                             user_type:  data.user_type
                         };
                         res.render(path.join("../views/pages", "user_info"), args);
@@ -85,10 +85,8 @@ router.get("/:username", function(req, res) {
                     function(data) {
                         args.user_info = {
                             username:   data.username,
-                            // about:      data.about,
-                            aboutF:     util.newLines2HTML(data.about),
-                            signature:  data.signature,
-                            signatureF: util.newLines2HTML(data.signature),
+                            aboutF:     util.formatOutput(data.about),
+                            signatureF: util.formatOutput(data.signature),
                             user_type:  data.user_type
                         };
                         res.render(path.join("../views/pages", "user_info"), args);

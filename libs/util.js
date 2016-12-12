@@ -1,7 +1,10 @@
-function newLines2HTML(new_lines) {
-    return new_lines.replace(/\r\n/g, "<br />");
+var marked      = require("marked");
+var escape_html = require("escape-html");
+
+function formatOutput(output) {
+    return marked(escape_html(output));
 }
 
 module.exports = {
-    newLines2HTML: newLines2HTML
+    formatOutput: formatOutput
 };

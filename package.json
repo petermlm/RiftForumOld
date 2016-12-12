@@ -12,10 +12,12 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "ejs": "~2.5.2",
+    "escape-html": "^1.0.3",
     "express": "~4.13.4",
     "jquery": "^3.1.1",
     "jquery.cookie": "^1.4.1",
     "jsonwebtoken": "~7.1.9",
+    "marked": "^0.3.6",
     "pg-promise": "~5.3.5",
     "serve-favicon": "~2.3.0"
   }
