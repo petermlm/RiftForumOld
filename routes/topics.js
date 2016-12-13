@@ -50,6 +50,7 @@ router.get("/:topic_id", function(req, res) {
 
     db.getTopicInfo(topic_id,
         function(data) {
+            console.log(data);
             args.topic = {
                 "topic_id": topic_id,
                 "title":    data.title
@@ -71,6 +72,7 @@ router.get("/:topic_id", function(req, res) {
                 });
         },
         function(error) {
+            console.log(error);
             res.redirect("/404");
         });
 });
