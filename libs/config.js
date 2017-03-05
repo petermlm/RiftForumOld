@@ -1,6 +1,6 @@
 module.exports = {
     // Server info
-    port: 3000,
+    port: 8002,
 
     // Authentication
     secret: "TODO",
@@ -8,10 +8,10 @@ module.exports = {
 
     // Database
     database: {
-        user:              "riftforum",
-        database:          "riftforum_dev",
-        password:          "riftpw",
-        host:              "localhost",
+        database:          "riftforum_db",
+        user:              "riftforum_user",
+        password:          "riftforum_pass",
+        host:              "postgres",
         port:              5432,
         max:               10,
         idleTimeoutMillis: 30000
