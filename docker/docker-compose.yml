@@ -1,0 +1,12 @@
+version: '2'
+services:
+    node:
+        depends_on:
+            - postgres
+        build: ..
+        image: rift-forum-node
+        ports:
+            - "8002:8002"
+    postgres:
+        build: ..
+        image: rift-forum-postgres
