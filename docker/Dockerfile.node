@@ -1,0 +1,17 @@
+FROM ubuntu:16.04
+
+# Install Node and npm
+RUN apt update --fix-missing && \
+    apt -qq -y install nodejs npm
+RUN ln -s /usr/bin/nodejs /usr/bin/node
+
+# Add project
+RUN mkdir -p /app
+ADD . /app
+
+# Install node packages
+RUN cd /app && npm install
+
+# Start
+WORKDIR /app
+CMD [ "npm", "start" ]
