@@ -6,7 +6,9 @@ services:
         build: ..
         image: rift-forum-node
         ports:
-            - "8002:8002"
+            - "8002:8000"
+        volumes:
+            - ..:/app
     postgres:
         build: ..
         image: rift-forum-postgres

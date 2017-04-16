@@ -1,6 +1,6 @@
 module.exports = {
     // Server info
-    port: 8002,
+    port: 8000,
 
     // Authentication
     secret: "TODO",
