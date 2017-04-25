@@ -1,3 +1,9 @@
+var postgres_host = "localhost";
+
+if("postgres_host" in process.env) {
+    postgres_host = process.env["postgres_host"];
+}
+
 module.exports = {
     // Server info
     port: 8000,
@@ -11,7 +17,7 @@ module.exports = {
         database:          "riftforum_db",
         user:              "riftforum_user",
         password:          "riftforum_pass",
-        host:              "postgres",
+        host:              postgres_host,
         port:              5432,
         max:               10,
         idleTimeoutMillis: 30000

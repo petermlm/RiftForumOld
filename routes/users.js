@@ -29,7 +29,8 @@ router.get("/", function(req, res) {
             data.forEach(function(user) {
                 users.push({
                     username:  user.username,
-                    user_type: user.user_type
+                    user_type: user.user_type,
+                    created:   user.created
                 });
             });
 

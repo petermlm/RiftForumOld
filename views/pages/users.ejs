@@ -24,7 +24,8 @@
             <thead>
                 <tr>
                     <th class="col-sm-6">Username</th>
-                    <th class="col-sm-6 users_list_user_type">User Type</th>
+                    <th class="col-sm-3 users_list_user_type">User Type</th>
+                    <th class="col-sm-3 users_list_creation_date">Creation Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,6 +44,9 @@
                     </td>
                     <td class="users_list_user_type">
                         <%= users[i].user_type %>
+                    </td>
+                    <td class="users_list_creation_date">
+                        <%= users[i].created %>
                     </td>
                 </tr>
                 <% } %>

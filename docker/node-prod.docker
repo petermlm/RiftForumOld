@@ -1,0 +1,8 @@
+FROM rift-forum-node-base
+
+# Add project
+ADD . /app
+RUN npm install
+
+# Start
+ENTRYPOINT [ "npm", "start" ]
