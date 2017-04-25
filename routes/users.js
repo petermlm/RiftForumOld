@@ -30,7 +30,7 @@ router.get("/", function(req, res) {
                 users.push({
                     username:  user.username,
                     user_type: user.user_type,
-                    created:   user.created
+                    Created:   user.CreatedDate
                 });
             });
 

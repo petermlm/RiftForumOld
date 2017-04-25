@@ -69,3 +69,10 @@ select Messages.message_id as "MessageId",
             as "MessageTime"
 from Messages inner join Users on Messages.user_id = Users.user_id
 order by Messages.message_timestamp;
+
+create view GetUsers as
+select username,
+       user_type,
+       to_char(created, 'DD Mon, YYYY HH:MI AM') as "CreatedDate"
+from Users
+order by created;

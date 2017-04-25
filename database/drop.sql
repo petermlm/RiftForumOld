@@ -14,6 +14,7 @@ drop table if exists Messages cascade;
 
 drop view if exists GetTopics cascade;
 drop view if exists GetMessages cascade;
+drop view if exists GetUsers cascade;
 
 -- ----------------------------------------------------------------------------
 -- Auth
