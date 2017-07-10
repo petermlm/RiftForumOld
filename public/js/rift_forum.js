@@ -27,7 +27,6 @@ var RiftForum = (function() {
                 });
 
                 $("#user_info_about_cancel").click(function() {
-                    console.log("lol");
                     $("#user_info_about_text").show();
                     $("#user_info_about_form").hide();
                 });
@@ -41,18 +40,16 @@ var RiftForum = (function() {
                 });
 
                 $("#user_info_signature_cancel").click(function() {
-                    console.log("lol");
                     $("#user_info_signature_text").show();
                     $("#user_info_signature_form").hide();
                 });
             }
-        },
-
-        rift: function() {
-            console.log("RiftForum");
         }
     };
 })();
+
+RiftForum.bindTextFeedback(text_area, feedback, limit) {
+}
 
 $(document).ready(function() {
     RiftForum.ready();
