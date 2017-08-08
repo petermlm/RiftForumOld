@@ -31,7 +31,7 @@ module.exports.prototype.setLoggedinUser = function(token_object) {
     this.login = true;
 
     this.user = {
-        user_type: token_object.user_type,
+        user_id: token_object.user_id,
         username:  token_object.username,
         user_type: token_object.user_type
     }
