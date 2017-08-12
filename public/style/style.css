@@ -135,6 +135,12 @@ nav {
     width: 100px;
 }
 
+.text_feedback {
+    color: grey;
+    padding-top: 18px;
+    padding-left: 12px;
+}
+
 /* ============================================================================
  * Messages List
  * ============================================================================
@@ -249,6 +255,9 @@ nav {
 }
 
 .users_list_user_type {
+}
+
+.users_list_creation_date {
     text-align: right;
 }
 

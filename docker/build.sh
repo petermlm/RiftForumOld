@@ -1,13 +1,9 @@
 #!/bin/bash
 
-cat \
-    ../database/create.sql \
-    ../database/views.sql \
-    ../database/topics.sql \
-    ../database/users.sql \
-    ../database/inserts.sql \
-    ../database/inserts_testing.sql \
-    > init.sql
+source prepare_db_init.sh
 
-sudo docker build -t rift-forum-node -f Dockerfile.node ..
-sudo docker build -t rift-forum-postgres -f Dockerfile.postgres ..
+sudo docker build -t rift-forum-node-base -f node-base.docker ..
+sudo docker build -t rift-forum-node-dev  -f node-dev.docker ..
+sudo docker build -t rift-forum-node-prod -f node-prod.docker ..
+
+sudo docker build -t rift-forum-postgres -f postgres.docker ..

@@ -5,13 +5,6 @@ RUN apt update --fix-missing && \
     apt -qq -y install nodejs npm
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
-# Add project
+# Working directory is the project's directory
 RUN mkdir -p /app
-ADD . /app
-
-# Install node packages
-RUN cd /app && npm install
-
-# Start
 WORKDIR /app
-CMD [ "npm", "start" ]
