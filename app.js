@@ -6,6 +6,18 @@ var jwt          = require("jsonwebtoken");
 var path         = require("path");
 
 var config = require("./libs/config");
+var models = require("./models");
+var default_data = require("./libs/default_data");
+
+/* ============================================================================
+ * Setup Models
+ * ============================================================================
+ */
+
+models.sequelize.sync().then(() => {
+    console.log('Models Sync');
+    default_data.create();
+});
 
 /* ============================================================================
  * Setup Express Application
@@ -27,19 +39,19 @@ app.use(cookieParser());
 
 var routes = {
     index:     require("./routes/index"),
-    auth:      require("./routes/auth"),
-    topics:    require("./routes/topics"),
-    users:     require("./routes/users"),
-    register:  require("./routes/register"),
+    // auth:      require("./routes/auth"),
+    // topics:    require("./routes/topics"),
+    // users:     require("./routes/users"),
+    // register:  require("./routes/register"),
     render404: require("./routes/render404")
 };
 
 app.use("/",         routes.index);
-app.use("/login",    routes.auth.login);
-app.use("/logout",   routes.auth.logout);
-app.use("/topics",   routes.topics);
-app.use("/users",    routes.users);
-app.use("/register", routes.register);
+// app.use("/login",    routes.auth.login);
+// app.use("/logout",   routes.auth.logout);
+// app.use("/topics",   routes.topics);
+// app.use("/users",    routes.users);
+// app.use("/register", routes.register);
 app.use("/404",      routes.render404);
 app.use("*",         routes.render404);
 
