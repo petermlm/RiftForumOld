@@ -1,50 +1,56 @@
+var users = require("./users");
 var models = require("../models");
 
 module.exports.create = () => {
-    models.User.findOrCreate({
+    var hash = users.hash_password('admin');
+
+    var user_created = models.User.findOrCreate({
         "where": {"username": "Admin"},
         "defaults": {
             "username":      "Admin",
-            "password_hash": "",
-            "password_salt": "",
+            "password_hash": hash,
             "signature":     "The Administrator",
             "about":         "I am the administrator.",
             "user_type":     "Administrator"
         }
     });
 
-    models.Topic.findOrCreate({
-        "where": {"id": 1},
-        "defaults": {
-            "title": "First Topic",
-            "UserId": 1
-        }
-    });
+    user_created.then((user) => {
+        var topic_created = models.Topic.findOrCreate({
+            "where": {"id": 1},
+            "defaults": {
+                "title": "First Topic",
+                "UserId": user[0]["id"]
+            }
+        });
 
-    models.Message.findOrCreate({
-        "where": {"id": 1},
-        "defaults": {
-            "message": "Message one",
-            "UserId": 1,
-            "TopicId": 1
-        }
-    });
+        topic_created.then((topic) => {
+            models.Message.findOrCreate({
+                "where": {"id": 1},
+                "defaults": {
+                    "message": "Message one",
+                    "UserId": user[0]["id"],
+                    "TopicId": topic[0]["id"]
+                }
+            });
 
-    models.Message.findOrCreate({
-        "where": {"id": 2},
-        "defaults": {
-            "message": "Message two",
-            "UserId": 1,
-            "TopicId": 1
-        }
-    });
+            models.Message.findOrCreate({
+                "where": {"id": 2},
+                "defaults": {
+                    "message": "Message two",
+                    "UserId": user[0]["id"],
+                    "TopicId": topic[0]["id"]
+                }
+            });
 
-    models.Message.findOrCreate({
-        "where": {"id": 3},
-        "defaults": {
-            "message": "Message three",
-            "UserId": 1,
-            "TopicId": 1
-        }
+            models.Message.findOrCreate({
+                "where": {"id": 3},
+                "defaults": {
+                    "message": "Message three",
+                    "UserId": user[0]["id"],
+                    "TopicId": topic[0]["id"]
+                }
+            });
+        });
     });
 };

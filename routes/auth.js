@@ -1,7 +1,7 @@
 var express = require("express");
 
 var auth = require("../libs/auth");
-var db = require("../libs/db");
+var users = require("../libs/users");
 
 var login  = express.Router();
 var logout = express.Router();
@@ -10,20 +10,18 @@ login.post("/", function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
 
-    db.checkUser(
-        username,
-        password,
-        function(data) {
+    users.checkUser(username, password)
+        .then((user) => {
             var token_obj = {
-                user_id:   data["user_id_ret"],
-                username:  data["username_ret"],
-                user_type: data["user_type_ret"]
+                "user_id":   user["id"],
+                "username":  user["username"],
+                "user_type": user["user_type"]
             };
 
             auth.startSession(res, token_obj);
             res.redirect("back");
-        },
-        function(error) {
+        })
+        .catch((error) => {
             auth.setBadLoginCookie(res);
             res.redirect("back");
         });

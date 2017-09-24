@@ -12,14 +12,11 @@ function checkSession(req) {
         return undefined;
     }
 
-    var decoded = undefined;
     try {
-        decoded = jwt.verify(req.cookies["token"], config.secret);
+        return jwt.verify(req.cookies["token"], config.secret);
     } catch(err) {
         return undefined;
     }
-
-    return decoded;
 }
 
 function endSession(res) {

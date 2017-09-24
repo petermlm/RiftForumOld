@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
 
     // Check session
     var token_object = auth.checkSession(req);
-    if(token_object != undefined) {
+    if(token_object) {
         args.setLoggedinUser(token_object);
     }
 
