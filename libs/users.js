@@ -42,3 +42,9 @@ module.exports.checkUser = (username, password) => {
             });
     });
 };
+
+module.exports.canEdit = (username_editor, username_edited) => {
+    return new Promise((resolve, reject) => {
+        resolve(true); // Needs better rules
+    });
+};
