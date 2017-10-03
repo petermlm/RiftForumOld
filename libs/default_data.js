@@ -15,43 +15,36 @@ module.exports.create = () => {
         }
     });
 
-    // FIXME: This messes up the sequences
-    // user_created.then((user) => {
-    //     var topic_created = models.Topic.findOrCreate({
-    //         "where": {"id": 1},
-    //         "defaults": {
-    //             "title": "First Topic",
-    //             "UserId": user[0]["id"]
-    //         }
-    //     });
-    //
-    //     topic_created.then((topic) => {
-    //         models.Message.findOrCreate({
-    //             "where": {"id": 1},
-    //             "defaults": {
-    //                 "message": "Message one",
-    //                 "UserId": user[0]["id"],
-    //                 "TopicId": topic[0]["id"]
-    //             }
-    //         });
-    //
-    //         models.Message.findOrCreate({
-    //             "where": {"id": 2},
-    //             "defaults": {
-    //                 "message": "Message two",
-    //                 "UserId": user[0]["id"],
-    //                 "TopicId": topic[0]["id"]
-    //             }
-    //         });
-    //
-    //         models.Message.findOrCreate({
-    //             "where": {"id": 3},
-    //             "defaults": {
-    //                 "message": "Message three",
-    //                 "UserId": user[0]["id"],
-    //                 "TopicId": topic[0]["id"]
-    //             }
-    //         });
-    //     });
-    // });
+    user_created.then((user) => {
+        models.Topic.count().then((count) => {
+            if(count > 0) {
+                return;
+            }
+
+            var topic_created = models.Topic.create({
+                "title": "First Topic",
+                "UserId": user[0]["id"]
+            });
+
+            topic_created.then((topic) => {
+                models.Message.create({
+                    "message": "Message one",
+                    "UserId": user[0]["id"],
+                    "TopicId": topic["id"]
+                });
+
+                models.Message.create({
+                    "message": "Message two",
+                    "UserId": user[0]["id"],
+                    "TopicId": topic["id"]
+                });
+
+                models.Message.create({
+                    "message": "Message three",
+                    "UserId": user[0]["id"],
+                    "TopicId": topic["id"]
+                });
+            });
+        });
+    });
 };

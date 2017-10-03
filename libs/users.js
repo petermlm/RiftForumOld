@@ -45,6 +45,28 @@ module.exports.checkUser = (username, password) => {
 
 module.exports.canEdit = (username_editor, username_edited) => {
     return new Promise((resolve, reject) => {
-        resolve(true); // Needs better rules
+        var editor_p = models.User.findOne({"where": {"username": username_editor}});
+
+        editor_p.then((user_editor) => {
+            var edited_p = models.User.findOne({"where": {"username": username_edited}});
+
+            edited_p.then((user_edited) => {
+                var editor_id = user_editor['id'];
+                var edited_id = user_edited['id'];
+                var editor_type = user_editor['user_type'];
+                var edited_type = user_edited['user_type'];
+
+                if(editor_id == edited_id ||
+                        editor_type == 'Administrator' ||
+                        editor_type == 'Moderator' && edited_type == 'User')
+                {
+                    resolve(true);
+                }
+
+                else {
+                    resolve(false);
+                }
+            });
+        });
     });
 };
