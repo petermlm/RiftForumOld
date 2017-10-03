@@ -1,3 +1,5 @@
+var crypto = require('crypto');
+
 var postgres_host = "localhost";
 
 module.exports = {
@@ -5,7 +7,8 @@ module.exports = {
     "port": 8000,
 
     // Authentication
-    "secret": "TODO",
+    "secret": crypto.randomBytes(32).toString('hex'),
+
     "expires": { "expiresIn": 1440 }, // 24 hours
 
     // Database
