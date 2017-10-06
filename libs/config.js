@@ -1,7 +1,5 @@
 var crypto = require('crypto');
 
-var postgres_host = "localhost";
-
 module.exports = {
     // Server info
     "port": 8000,

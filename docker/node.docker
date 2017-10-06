@@ -8,3 +8,10 @@ RUN ln -s /usr/bin/nodejs /usr/bin/node
 # Working directory is the project's directory
 RUN mkdir -p /app
 WORKDIR /app
+
+# Add project, and install packages
+ADD . /app
+RUN npm install
+
+# Start
+ENTRYPOINT [ "npm", "start" ]
