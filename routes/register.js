@@ -3,7 +3,7 @@ var path    = require("path");
 
 var auth = require("../libs/auth");
 var render_args = require("../libs/render_args");
-var db = require("../libs/db");
+var users = require("../libs/users");
 
 var router = express.Router();
 
@@ -41,14 +41,8 @@ router.post("/", function(req, res) {
         res.end("Error");
     }
 
-    db.newUser(username, password,
-        function(data) {
-            res.redirect("/");
-        },
-        function(error) {
-            console.log(error);
-            res.redirect("/");
-        });
+    users.createUser(username, password);
+    res.redirect("/");
 });
 
 module.exports = router;

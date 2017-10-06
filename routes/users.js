@@ -3,49 +3,49 @@ var path    = require("path");
 
 var auth        = require("../libs/auth");
 var render_args = require("../libs/render_args");
-var db          = require("../libs/db");
 var util        = require("../libs/util");
+var users       = require("../libs/users");
+var models      = require("../models");
 
 var router = express.Router();
 
-router.get("/", function(req, res) {
+router.get("/", (req, res) => {
     // Prepare render arguments
     var args = new render_args(req);
     args.setPage("users");
 
     // Check session
     var token_object = auth.checkSession(req);
-    if(token_object != undefined) {
+    if(token_object) {
         args.setLoggedinUser(token_object);
     } else {
         res.redirect("/404");
         return;
     }
 
-    db.usersList(
-        function(data) {
-            var users = [];
+    models.User.all()
+        .then((users) => {
+            args.users = [];
 
-            data.forEach(function(user) {
-                users.push({
-                    username:  user.username,
-                    user_type: user.user_type,
-                    Created:   user.CreatedDate
+            users.forEach((user) => {
+                args.users.push({
+                    "username":  user["username"],
+                    "user_type": user["user_type"],
+                    "Created":   user["createdAt"]
                 });
             });
 
-            args.users = users;
             res.render(path.join("../views/pages", "users"), args);
-        },
-        function(error) {
+        })
+        .catch((error) => {
         });
 });
 
-router.get("/:username", function(req, res) {
+router.get("/:username", (req, res) => {
     var args = new render_args();
 
     var token_object = auth.checkSession(req);
-    if(token_object != undefined) {
+    if(token_object) {
         args.setLoggedinUser(token_object);
     } else {
         res.redirect("/404");
@@ -55,49 +55,34 @@ router.get("/:username", function(req, res) {
     var username = req.params.username;
     var username_token = token_object["username"];
 
-    // If the user is the same, render page with edition options
-    db.canEdit(username_token, username,
-        function(data) {
-            if(data[0]["canedit"]) {
-                args.enable_edition = true;
+    // Check if the current user can edit the information of the user in this
+    // page
+    users.canEdit(username_token, username)
+        .then((can_edit) => {
+            args.enable_edition = can_edit;
 
-                db.getUserInfo(username,
-                    function(data) {
-                        args.user_info = {
-                            username:   data.username,
-                            about:      data.about,
-                            aboutF:     util.formatOutput(data.about),
-                            signature:  data.signature,
-                            signatureF: util.formatOutput(data.signature),
-                            user_type:  data.user_type
-                        };
-                        res.render(path.join("../views/pages", "user_info"), args);
-                    },
-                    function(error) {
-                        res.redirect("/404");
-                    });
-            }
+            models.User.findOne({"where": {"username": username}})
+                .then((user) => {
+                    args.user_info = {
+                        "username":   user["username"],
+                        "aboutF":     util.formatOutput(user["about"]),
+                        "signatureF": util.formatOutput(user["signature"]),
+                        "user_type":  user["user_type"]
+                    };
 
-            // If not, render without
-            else {
-                args.enable_edition = false;
+                    if(args.enable_edition) {
+                        args.user_info["about"] = user["about"];
+                        args.user_info["signature"] = user["signature"];
+                    }
 
-                db.getUserInfo(username,
-                    function(data) {
-                        args.user_info = {
-                            username:   data.username,
-                            aboutF:     util.formatOutput(data.about),
-                            signatureF: util.formatOutput(data.signature),
-                            user_type:  data.user_type
-                        };
-                        res.render(path.join("../views/pages", "user_info"), args);
-                    },
-                    function(error) {
-                        res.redirect("/404");
-                    });
-            }
-        },
-        function(error) {
+                    res.render(path.join("../views/pages", "user_info"), args);
+                })
+                .catch((error) => {
+                    res.redirect("/404");
+                });
+        })
+        .catch((error) => {
+            res.redirect("/404");
         });
 });
 
@@ -112,35 +97,22 @@ router.post("/:username", function(req, res) {
         return;
     }
 
-    if("about" in req.body) {
-        db.userUpdateAbout(
-            req.params.username,
-            req.body.about,
-            function() {
-                res.redirect(req.originalUrl);
-            },
-            function(error) {
-                console.log(error);
-                return;
-            });
-    }
+    var username = req.params.username;
 
-    else if("signature" in req.body) {
-        db.userUpdateSignature(
-            req.params.username,
-            req.body.signature,
-            function() {
-                res.redirect(req.originalUrl);
-            },
-            function(error) {
-                console.log(error);
-                return;
-            });
-    }
+    models.User.findOne({"where": {"username": username}})
+        .then((user) => {
+            if("about" in req.body) {
+                user.about = req.body.about;
+            }
 
-    else {
-        res.end("Error");
-    }
+            else if("signature" in req.body) {
+                user.signature = req.body.signature;
+            }
+
+            user.save();
+            res.redirect(req.originalUrl);
+        })
+        .catch((error) => {});
 });
 
 module.exports = router;

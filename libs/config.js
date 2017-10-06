@@ -1,25 +1,22 @@
-var postgres_host = "localhost";
-
-if("postgres_host" in process.env) {
-    postgres_host = process.env["postgres_host"];
-}
+var crypto = require('crypto');
 
 module.exports = {
     // Server info
-    port: 8000,
+    "port": 8000,
 
     // Authentication
-    secret: "TODO",
-    expires: { expiresIn: 1440 }, // 24 hours
+    "secret": crypto.randomBytes(32).toString('hex'),
+
+    "expires": { "expiresIn": 1440 }, // 24 hours
 
     // Database
-    database: {
-        database:          "riftforum_db",
-        user:              "riftforum_user",
-        password:          "riftforum_pass",
-        host:              postgres_host,
-        port:              5432,
-        max:               10,
-        idleTimeoutMillis: 30000
+    "database": {
+        "database":          "riftforum_db",
+        "user":              "riftforum_user",
+        "password":          "riftforum_pass",
+        "host":              "localhost",
+        "port":              9000,
+        "max":               10,
+        "idleTimeoutMillis": 30000
     }
 };
