@@ -5,13 +5,14 @@ RUN apt update --fix-missing && \
     apt -qq -y install nodejs npm
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
+RUN npm install -g nodemon
+
 # Working directory is the project's directory
 RUN mkdir -p /app
 WORKDIR /app
 
 # Add project, and install packages
 ADD . /app
-RUN npm install
-
-# Start
-ENTRYPOINT [ "npm", "start" ]
+RUN mkdir /package
+RUN cp /app/package.json /package/package.json
+RUN npm install --prefix /package

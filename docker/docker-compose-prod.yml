@@ -1,0 +1,19 @@
+version: '2'
+services:
+  node:
+    build:
+      context: ..
+      dockerfile: docker/node.docker
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    entrypoint: docker/entry-prod.sh
+    environment:
+      - NODE_PATH=/package/node_modules
+  postgres:
+    build:
+      context: ..
+      dockerfile: docker/postgres.docker
+    volumes:
+      - ./data:/var/lib/postgresql/data

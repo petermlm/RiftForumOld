@@ -14,8 +14,8 @@ module.exports = {
         "database":          "riftforum_db",
         "user":              "riftforum_user",
         "password":          "riftforum_pass",
-        "host":              "localhost",
-        "port":              9000,
+        "host":              "postgres",
+        "port":              5432,
         "max":               10,
         "idleTimeoutMillis": 30000
     }
