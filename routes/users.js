@@ -23,12 +23,16 @@ router.get("/", (req, res) => {
         return;
     }
 
+    var can_change_type = token_object["user_type"] == "Administrator";
+    args["CanChangeType"] = can_change_type;
+
     models.User.all()
         .then((users) => {
             args.users = [];
 
             users.forEach((user) => {
                 args.users.push({
+                    "id":        user["id"],
                     "username":  user["username"],
                     "user_type": user["user_type"],
                     "Created":   user["createdAt"]
@@ -111,6 +115,24 @@ router.post("/:username", function(req, res) {
 
             user.save();
             res.redirect(req.originalUrl);
+        })
+        .catch((error) => {});
+});
+
+router.post("/change_type/:user_id", function(req, res) {
+    var user_id = req.params.user_id;
+
+    models.User.findOne({"where": {"id": user_id}})
+        .then((user) => {
+            if(user.user_type == "User") {
+                user.user_type = "Moderator";
+            } else if(user.user_type == "Moderator") {
+                user.user_type = "User";
+            }
+
+            user.save().then(() => {
+                res.redirect("/users");
+            });
         })
         .catch((error) => {});
 });

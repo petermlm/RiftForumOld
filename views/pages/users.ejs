@@ -23,14 +23,20 @@
         <table class="table table-hover">
             <thead>
                 <tr>
+                    <% if(CanChangeType) { %>
+                    <th class="col-sm-3">Username</th>
+                    <th class="col-sm-3 users_list_user_type">User Type</th>
+                    <th class="col-sm-3 users_list_creation_date">Creation Date</th>
+                    <th class="col-sm-3 users_list_change_type">Change Type</th>
+                    <% } else { %>
                     <th class="col-sm-6">Username</th>
                     <th class="col-sm-3 users_list_user_type">User Type</th>
                     <th class="col-sm-3 users_list_creation_date">Creation Date</th>
+                    <% } %>
                 </tr>
             </thead>
             <tbody>
                 <% for(var i=0; i<users.length; i++) { %>
-
                 <% if(users[i].user_type == "Administrator") { %>
                     <tr class="danger">
                 <% } else if(users[i].user_type == "Moderator") { %>
@@ -48,6 +54,14 @@
                     <td class="users_list_creation_date">
                         <%= users[i].Created %>
                     </td>
+
+                    <% if(CanChangeType) { %>
+                    <td class="users_list_change_type">
+                        <form method="POST" action="/users/change_type/<%= users[i].id %>">
+                            <button type="submit" >Change</button>
+                        </form>
+                    </td>
+                    <% } %>
                 </tr>
                 <% } %>
             </tbody>
