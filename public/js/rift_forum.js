@@ -48,9 +48,6 @@ var RiftForum = (function() {
     };
 })();
 
-RiftForum.bindTextFeedback(text_area, feedback, limit) {
-}
-
 $(document).ready(function() {
     RiftForum.ready();
 });

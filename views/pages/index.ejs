@@ -32,27 +32,27 @@
                 <% topics.forEach(function(topic) { %>
                 <tr>
                     <td class="topics_list_title">
-                        <a href="/topics/<%= topic.TopicId %>"><%= topic.TopicTitle %></a><br/>
+                        <a href="/topics/<%= topic.id %>"><%= topic.title %></a><br/>
                         <span class="topics_list_title_author">
                             By
-                            <a href="/users/<%= topic.TopicAuthor %>" class="topics_list_title_author_hl">
-                                <%= topic.TopicAuthor %>
+                            <a href="/users/<%= topic.author %>" class="topics_list_title_author_hl">
+                                <%= topic.author %>
                             </a>
                             on
-                            <span class="topics_list_title_author_hl"><%= topic.TopicTimestamp %></span>
+                            <span class="topics_list_title_author_hl"><%= topic.timestamp %></span>
                         </span>
                     </td>
-                    <td class="topics_list_messages"><%= topic.TopicMessageCount %></td>
+                    <td class="topics_list_messages"><%= topic.message_count %></td>
                     <td>
                         <span class="topics_list_last">
                             By
                             <span class="topics_list_last_hl">
-                                <a href="/users/<%= topic.TopicLastAuthor %>">
-                                <%= topic.TopicLastAuthor %>
+                                <a href="/users/<%= topic.last_author %>">
+                                <%= topic.last_author %>
                                 </a>
                             </span>
                             on<br/>
-                            <span class="topics_list_last_hl"><%= topic.TopicLastTimestamp %></span>
+                            <span class="topics_list_last_hl"><%= topic.last_timestamp %></span>
                         </span>
                     </td>
                 </tr>
