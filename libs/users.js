@@ -21,7 +21,7 @@ module.exports.createUser = (username, password) => {
         "user_type":     "User"
     };
 
-    models.User.create(new_user_info);
+    return models.User.create(new_user_info);
 };
 
 module.exports.checkUser = (username, password) => {

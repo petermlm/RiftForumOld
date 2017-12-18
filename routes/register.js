@@ -41,8 +41,18 @@ router.post("/", function(req, res) {
         res.end("Error");
     }
 
-    users.createUser(username, password);
-    res.redirect("/");
+    users.createUser(username, password)
+        .then((new_user) => {
+            var token_obj = {
+                "user_id":   new_user["id"],
+                "username":  new_user["username"],
+                "user_type": new_user["user_type"]
+            };
+
+            auth.startSession(res, token_obj);
+            res.redirect("/");
+        })
+        .catch(() => {});
 });
 
 module.exports = router;
