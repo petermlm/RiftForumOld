@@ -63,6 +63,9 @@ router.get("/:topic_id", (req, res) => {
                 "model": models.Message,
                 "include": [models.User]
             }
+        ],
+        "order": [
+            ["Messages", 'createdAt', 'ASC']
         ]
     };
 
@@ -76,6 +79,7 @@ router.get("/:topic_id", (req, res) => {
 
         topic['Messages'].forEach((message) => {
             var message_to_send = {
+                "message_id": message["id"],
                 "Username": message["User"]["username"],
                 "UserType": message["User"]["user_type"],
                 "MessageTime": message["createdAt"],
@@ -98,21 +102,49 @@ router.post("/:topic_id", function(req, res) {
         args.setLoggedinUser(token_object);
     } else {
         res.end("Error");
+        return;
     }
 
     var topic_id = req.params.topic_id;
+    var method     = req.body.method;
+    var message_id = req.body.message_id;
     var user_id  = token_object.user_id;
     var message  = req.body.message;
 
-    models.Message.create({
-        "message": message,
-        "UserId": user_id,
-        "TopicId": topic_id
-    })
-    .then((message) => {
-        res.redirect("back");
-    })
-    .catch((error) => {});
+    if(method == "post") {
+        models.Message.create({
+            "message": message,
+            "UserId": user_id,
+            "TopicId": topic_id
+        })
+        .then((message) => {
+            res.redirect("back");
+        })
+        .catch((error) => {});
+    } else {
+        var find_one_args = {
+            "where": {"id": message_id}
+        };
+
+        models.Message.findOne(find_one_args).then((message_obj) => {
+            message_obj["message"] = message;
+            message_obj.save().then(() => {
+                res.redirect(req.originalUrl);
+            });
+        });
+    }
+});
+
+router.get("/messages/:message_id", function(req, res) {
+    var message_id  = req.params.message_id;
+
+    var find_one_args = {
+        "where": {"id": message_id}
+    };
+
+    models.Message.findOne(find_one_args).then((message) => {
+        res.end(message["message"]);
+    });
 });
 
 module.exports = router;

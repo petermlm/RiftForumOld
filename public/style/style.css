@@ -239,6 +239,14 @@ nav {
     width: 100px;
 }
 
+.new_message form button[name=post] {
+    margin-left: 10px;
+}
+
+.new_message form button[name=clear] {
+    display: none;
+}
+
 /* ============================================================================
  * Users List
  * ============================================================================
