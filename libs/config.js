@@ -1,12 +1,19 @@
 var crypto = require('crypto');
 
+var secret = "";
+
+if("DEBUG" in process.env) {
+    secret = "secret";
+} else {
+    secret = crypto.randomBytes(32).toString('hex');
+}
+
 module.exports = {
     // Server info
     "port": 8000,
 
     // Authentication
-    "secret": crypto.randomBytes(32).toString('hex'),
-
+    "secret": secret,
     "expires": { "expiresIn": 1440 }, // 24 hours
 
     // Database
