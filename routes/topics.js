@@ -78,13 +78,22 @@ router.get("/:topic_id", (req, res) => {
         args.topic.messages = [];
 
         topic['Messages'].forEach((message) => {
+            var can_edit = false;
+
+            if(token_object) {
+                can_edit = message["User"]["id"] == token_object["user_id"] ||
+                    token_object["user_type"] == "Administrator" ||
+                    token_object["user_type"] == "Moderator";
+            }
+
             var message_to_send = {
                 "message_id": message["id"],
                 "Username": message["User"]["username"],
                 "UserType": message["User"]["user_type"],
                 "MessageTime": message["createdAt"],
                 "MessageF": util.formatOutput(message["message"]),
-                "SignatureF": util.formatOutput(message["User"]["signature"])
+                "SignatureF": util.formatOutput(message["User"]["signature"]),
+                "CanEdit": can_edit
             };
 
             args.topic.messages.push(message_to_send);

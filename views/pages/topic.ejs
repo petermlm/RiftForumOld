@@ -33,9 +33,11 @@
                             Posted on<br/>
                             <span><%= message.MessageTime %></span>
                         </div>
+                        <% if(message.CanEdit) { %>
                         <div class="message_list_edit_bnt" data-message-id="<%= message.message_id %>">
                             <a href="#">Edit</a>
                         </div>
+                        <% } %>
                     </div>
                     <div class="col-sm-10 message_list_author_message">
                         <div class="message_list_author_message_text">
