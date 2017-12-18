@@ -2,9 +2,9 @@ var express = require("express");
 var path    = require("path");
 
 var auth        = require("../libs/auth");
+var models      = require("../models");
 var render_args = require("../libs/render_args");
 var util        = require("../libs/util");
-var models      = require("../models");
 
 var router = express.Router();
 
@@ -90,7 +90,7 @@ router.get("/:topic_id", (req, res) => {
                 "message_id": message["id"],
                 "Username": message["User"]["username"],
                 "UserType": message["User"]["user_type"],
-                "MessageTime": message["createdAt"],
+                "MessageTime": util.formatDates(message["createdAt"]),
                 "MessageF": util.formatOutput(message["message"]),
                 "SignatureF": util.formatOutput(message["User"]["signature"]),
                 "CanEdit": can_edit

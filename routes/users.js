@@ -35,7 +35,7 @@ router.get("/", (req, res) => {
                     "id":        user["id"],
                     "username":  user["username"],
                     "user_type": user["user_type"],
-                    "Created":   user["createdAt"]
+                    "Created":   util.formatDates(user["createdAt"])
                 });
             });
 

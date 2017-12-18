@@ -1,9 +1,10 @@
 var express = require("express");
 var path    = require("path");
 
-var auth = require("../libs/auth");
+var auth        = require("../libs/auth");
+var models      = require("../models");
 var render_args = require("../libs/render_args");
-var models = require("../models");
+var util        = require("../libs/util");
 
 var router = express.Router();
 
@@ -42,8 +43,8 @@ router.get("/", (req, res) => {
                 "title": topic["title"],
                 "author": topic["User"]["username"],
                 "last_author": last_author,
-                "timestamp": topic["createdAt"],
-                "last_timestamp": last_message["createdAt"],
+                "timestamp": util.formatDates(topic["createdAt"]),
+                "last_timestamp": util.formatDates(last_message["createdAt"]),
                 "message_count": messages_length
             });
         });
