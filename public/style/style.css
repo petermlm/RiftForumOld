@@ -7,7 +7,7 @@ footer {
     margin-top: 30px;
 }
 
-a:visited {
+.link_visited:visited {
     color: #551a8b;
 }
 

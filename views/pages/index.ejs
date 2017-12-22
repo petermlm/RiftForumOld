@@ -32,7 +32,7 @@
                 <% topics.forEach(function(topic) { %>
                 <tr>
                     <td class="topics_list_title">
-                        <a href="/topics/<%= topic.id %>"><%= topic.title %></a><br/>
+                        <a href="/topics/<%= topic.id %>" class="link_visited"><%= topic.title %></a><br/>
                         <span class="topics_list_title_author">
                             By
                             <a href="/users/<%= topic.author %>" class="topics_list_title_author_hl">
