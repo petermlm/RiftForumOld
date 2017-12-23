@@ -26,7 +26,7 @@ router.get("/", (req, res) => {
     var can_change_type = token_object["user_type"] == "Administrator";
     args["CanChangeType"] = can_change_type;
 
-    models.User.all()
+    models.User.all({"order": [["createdAt", "DESC"]]})
         .then((users) => {
             args.users = [];
 
@@ -42,6 +42,7 @@ router.get("/", (req, res) => {
             res.render(path.join("../views/pages", "users"), args);
         })
         .catch((error) => {
+            res.redirect("/500");
         });
 });
 

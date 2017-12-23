@@ -43,7 +43,7 @@ var routes = {
     topics:    require("./routes/topics"),
     users:     require("./routes/users"),
     register:  require("./routes/register"),
-    render404: require("./routes/render404")
+    errors:    require("./routes/errors")
 };
 
 app.use("/",         routes.index);
@@ -52,8 +52,9 @@ app.use("/logout",   routes.auth.logout);
 app.use("/topics",   routes.topics);
 app.use("/users",    routes.users);
 app.use("/register", routes.register);
-app.use("/404",      routes.render404);
-app.use("*",         routes.render404);
+app.use("/404",      routes.errors.router404);
+app.use("/500",      routes.errors.router500);
+app.use("*",         routes.errors.router404);
 
 /* ============================================================================
  * Listen
