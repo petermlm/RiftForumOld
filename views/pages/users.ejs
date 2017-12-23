@@ -57,7 +57,7 @@
 
                     <% if(CanChangeType) { %>
                     <td class="users_list_change_type">
-                        <form method="POST" action="/users/change_type/<%= users[i].id %>">
+                        <form method="POST" action="/users/<%= users[i].id %>/change_type">
                             <button type="submit" >Change</button>
                         </form>
                     </td>

@@ -127,7 +127,7 @@ router.post("/:username", function(req, res) {
         });
 });
 
-router.post("/change_type/:user_id", function(req, res) {
+router.post("/:user_id/change_type", function(req, res) {
     var user_id = req.params.user_id;
 
     models.User.findOne({"where": {"id": user_id}})
