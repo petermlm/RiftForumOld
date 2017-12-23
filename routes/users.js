@@ -42,6 +42,7 @@ router.get("/", (req, res) => {
             res.render(path.join("../views/pages", "users"), args);
         })
         .catch((error) => {
+            console.error(error);
             res.redirect("/500");
         });
 });
@@ -83,11 +84,13 @@ router.get("/:username", (req, res) => {
                     res.render(path.join("../views/pages", "user_info"), args);
                 })
                 .catch((error) => {
-                    res.redirect("/404");
+                    console.error(error);
+                    res.redirect("/500");
                 });
         })
         .catch((error) => {
-            res.redirect("/404");
+            console.error(error);
+            res.redirect("/500");
         });
 });
 
@@ -117,7 +120,10 @@ router.post("/:username", function(req, res) {
             user.save();
             res.redirect(req.originalUrl);
         })
-        .catch((error) => {});
+        .catch((error) => {
+            console.error(error);
+            res.redirect("/500");
+        });
 });
 
 router.post("/change_type/:user_id", function(req, res) {
@@ -135,7 +141,10 @@ router.post("/change_type/:user_id", function(req, res) {
                 res.redirect("/users");
             });
         })
-        .catch((error) => {});
+        .catch((error) => {
+            console.error(error);
+            res.redirect("/500");
+        });
 });
 
 module.exports = router;

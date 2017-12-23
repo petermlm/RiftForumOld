@@ -15,7 +15,7 @@ router.get("/", function(req, res) {
     // Check session
     var token_object = auth.checkSession(req);
     if(token_object != undefined) {
-        res.end("Error");
+        res.redirect("/");
     }
 
     res.render(path.join("../views/pages", "register"), args);
@@ -29,7 +29,7 @@ router.post("/", function(req, res) {
     // Check session
     var token_object = auth.checkSession(req);
     if(token_object != undefined) {
-        res.end("Error");
+        res.redirect("/");
     }
 
     var username  = req.body.username;
@@ -38,7 +38,8 @@ router.post("/", function(req, res) {
 
     if(password != password2) {
         console.log("Passwords don't match");
-        res.end("Error");
+        res.redirect("back");
+        // TODO: Needs user feeback
     }
 
     users.createUser(username, password)
@@ -52,7 +53,10 @@ router.post("/", function(req, res) {
             auth.startSession(res, token_obj);
             res.redirect("/");
         })
-        .catch(() => {});
+        .catch((error) => {
+            console.error(error);
+            res.redirect("/500");
+        });
 });
 
 module.exports = router;

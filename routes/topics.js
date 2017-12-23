@@ -17,7 +17,7 @@ router.post("/", function(req, res) {
     if(token_object != undefined) {
         args.setLoggedinUser(token_object);
     } else {
-        res.end("Error");
+        res.redirect("/index");
         return;
     }
 
@@ -38,9 +38,15 @@ router.post("/", function(req, res) {
         .then((message) => {
             res.redirect(path.join(req.originalUrl, ""+topic["id"]));
         })
-        .catch((error) => { console.log(error); });
+        .catch((error) => {
+            console.error(error);
+            res.redirect("/500");
+        });
     })
-    .catch((error) => {});
+    .catch((error) => {
+        console.error(error);
+        res.redirect("/500");
+    });
 });
 
 router.get("/:topic_id", (req, res) => {
@@ -69,38 +75,43 @@ router.get("/:topic_id", (req, res) => {
         ]
     };
 
-    models.Topic.findOne(find_one_args).then((topic) => {
-        args.topic = {
-            "topic_id": topic["id"],
-            "title":    topic["title"]
-        };
-
-        args.topic.messages = [];
-
-        topic['Messages'].forEach((message) => {
-            var can_edit = false;
-
-            if(token_object) {
-                can_edit = message["User"]["id"] == token_object["user_id"] ||
-                    token_object["user_type"] == "Administrator" ||
-                    token_object["user_type"] == "Moderator";
-            }
-
-            var message_to_send = {
-                "message_id": message["id"],
-                "Username": message["User"]["username"],
-                "UserType": message["User"]["user_type"],
-                "MessageTime": util.formatDates(message["createdAt"]),
-                "MessageF": util.formatOutput(message["message"]),
-                "SignatureF": util.formatOutput(message["User"]["signature"]),
-                "CanEdit": can_edit
+    models.Topic.findOne(find_one_args)
+        .then((topic) => {
+            args.topic = {
+                "topic_id": topic["id"],
+                "title":    topic["title"]
             };
 
-            args.topic.messages.push(message_to_send);
-        });
+            args.topic.messages = [];
 
-        res.render(path.join("../views/pages", "topic"), args);
-    });
+            topic['Messages'].forEach((message) => {
+                var can_edit = false;
+
+                if(token_object) {
+                    can_edit = message["User"]["id"] == token_object["user_id"] ||
+                        token_object["user_type"] == "Administrator" ||
+                        token_object["user_type"] == "Moderator";
+                }
+
+                var message_to_send = {
+                    "message_id": message["id"],
+                    "Username": message["User"]["username"],
+                    "UserType": message["User"]["user_type"],
+                    "MessageTime": util.formatDates(message["createdAt"]),
+                    "MessageF": util.formatOutput(message["message"]),
+                    "SignatureF": util.formatOutput(message["User"]["signature"]),
+                    "CanEdit": can_edit
+                };
+
+                args.topic.messages.push(message_to_send);
+            });
+
+            res.render(path.join("../views/pages", "topic"), args);
+        })
+        .catch((error) => {
+            console.error(error);
+            res.redirect("/500");
+        });
 });
 
 router.post("/:topic_id", function(req, res) {
@@ -129,18 +140,26 @@ router.post("/:topic_id", function(req, res) {
         .then((message) => {
             res.redirect("back");
         })
-        .catch((error) => {});
+        .catch((error) => {
+            console.error(error);
+            res.redirect("/500");
+        });
     } else {
         var find_one_args = {
             "where": {"id": message_id}
         };
 
-        models.Message.findOne(find_one_args).then((message_obj) => {
-            message_obj["message"] = message;
-            message_obj.save().then(() => {
-                res.redirect(req.originalUrl);
+        models.Message.findOne(find_one_args)
+            .then((message_obj) => {
+                message_obj["message"] = message;
+                message_obj.save().then(() => {
+                    res.redirect(req.originalUrl);
+                });
+            })
+            .catch((error) => {
+                console.error(error);
+                res.redirect("/500");
             });
-        });
     }
 });
 
@@ -151,9 +170,14 @@ router.get("/messages/:message_id", function(req, res) {
         "where": {"id": message_id}
     };
 
-    models.Message.findOne(find_one_args).then((message) => {
-        res.end(message["message"]);
-    });
+    models.Message.findOne(find_one_args)
+        .then((message) => {
+            res.end(message["message"]);
+        })
+        .catch((error) => {
+            console.error(error);
+            res.redirect("/500");
+        });
 });
 
 module.exports = router;
