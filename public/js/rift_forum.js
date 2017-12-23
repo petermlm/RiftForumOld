@@ -9,6 +9,10 @@ var RiftForum = (function() {
 
             // Is there any edit?
             this.editButtons();
+
+            // Keep char numbers
+            this.keepCharNumbersTopics();
+            this.keepCharNumbersMessages();
         },
 
         showBadLogin: function() {
@@ -90,6 +94,7 @@ var RiftForum = (function() {
             form_message_id.val(message_id);
             form_text.val(ret);
             form_clear.show();
+            form_text.change();
         },
 
         endEditing: function() {
@@ -102,6 +107,61 @@ var RiftForum = (function() {
             form_message_id.val("");
             form_text.val("");
             form_clear.hide();
+            form_text.change();
+        },
+
+        keepCharNumbersTopics: function() {
+            var elements = {
+                text_area: $(".new_topic_forum form textarea[name=message]"),
+                submit: $(".new_topic_forum form button[name=submit]"),
+                text_feedback: $("#text_feedback"),
+                text_feedback_val: $("#text_feedback_val")
+            }
+
+            if(!elements.text_area) {
+                return;
+            }
+
+            this.keepCharNumbers(elements);
+        },
+
+        keepCharNumbersMessages: function() {
+            var elements = {
+                text_area: $(".new_message form textarea[name=message]"),
+                submit: $(".new_message form button[name=post]"),
+                text_feedback: $("#text_feedback"),
+                text_feedback_val: $("#text_feedback_val")
+            }
+
+            if(!elements.text_area) {
+                return;
+            }
+
+            this.keepCharNumbers(elements);
+        },
+
+        keepCharNumbers: function(elements) {
+            var self = this;
+            elements.text_area.keyup(function() { self.updateCharNumbers(elements); });
+            elements.text_area.keydown(function() { self.updateCharNumbers(elements); });
+            elements.text_area.keypress(function() { self.updateCharNumbers(elements); });
+            elements.text_area.change(function() { self.updateCharNumbers(elements); });
+        },
+
+        updateCharNumbers: function(elements) {
+            var text_length = elements.text_area.val().length;
+
+            if(text_length > 500) {
+                elements.submit.attr("disabled", true);
+                elements.text_feedback.addClass("text-danger");
+                elements.text_feedback.removeClass("text_feedback_normal");
+            } else {
+                elements.submit.attr("disabled", false);
+                elements.text_feedback.removeClass("text-danger");
+                elements.text_feedback.addClass("text_feedback_normal");
+            }
+
+            elements.text_feedback_val.text(text_length);
         }
     };
 })();

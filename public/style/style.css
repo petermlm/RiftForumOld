@@ -16,6 +16,10 @@ footer {
     padding-right: 14px;
 }
 
+.submit_button[disabled] {
+    cursor: default;
+}
+
 /* ============================================================================
  * Nav
  * ============================================================================
@@ -135,10 +139,13 @@ nav {
     width: 100px;
 }
 
-.text_feedback {
-    color: grey;
+#text_feedback {
     padding-top: 18px;
     padding-left: 12px;
+}
+
+.text_feedback_normal {
+    color: grey;
 }
 
 /* ============================================================================
