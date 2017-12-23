@@ -12,13 +12,7 @@ login.post("/", function(req, res) {
 
     users.checkUser(username, password)
         .then((user) => {
-            var token_obj = {
-                "user_id":   user["id"],
-                "username":  user["username"],
-                "user_type": user["user_type"]
-            };
-
-            auth.startSession(res, token_obj);
+            auth.startSession(res, user["id"], user["username"], user["user_type"]);
             res.redirect("back");
         })
         .catch((error) => {
@@ -28,7 +22,6 @@ login.post("/", function(req, res) {
 });
 
 logout.post("/", function(req, res) {
-    var return_page = req.body.return_page;
     auth.endSession(res);
     res.redirect("back");
 });
