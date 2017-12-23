@@ -43,6 +43,7 @@ var routes = {
     topics:    require("./routes/topics"),
     users:     require("./routes/users"),
     register:  require("./routes/register"),
+    admin:     require("./routes/admin"),
     errors:    require("./routes/errors")
 };
 
@@ -52,6 +53,7 @@ app.use("/logout",   routes.auth.logout);
 app.use("/topics",   routes.topics);
 app.use("/users",    routes.users);
 app.use("/register", routes.register);
+app.use("/admin",    routes.admin);
 app.use("/404",      routes.errors.router404);
 app.use("/500",      routes.errors.router500);
 app.use("*",         routes.errors.router404);

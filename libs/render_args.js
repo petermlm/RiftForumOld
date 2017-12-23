@@ -11,6 +11,11 @@ module.exports = function() {
     this.login = false;
 
     /*
+     * If the user is the administrator, this flag should be set to true
+     */
+    this.is_admin = false;
+
+    /*
      * User information. If the user is not logged in, this object should
      * be {}. Else, the object should have the following fields:
      *
@@ -29,6 +34,10 @@ module.exports.prototype.setPage = function(page) {
 
 module.exports.prototype.setLoggedinUser = function(token_object) {
     this.login = true;
+
+    if(token_object.user_type == "Administrator") {
+        this.is_admin = true;
+    }
 
     this.user = {
         user_type: token_object.user_type,

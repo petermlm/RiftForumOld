@@ -2,10 +2,10 @@ var express = require("express");
 var path    = require("path");
 
 var auth        = require("../libs/auth");
-var render_args = require("../libs/render_args");
-var util        = require("../libs/util");
-var users       = require("../libs/users");
 var models      = require("../models");
+var render_args = require("../libs/render_args");
+var users       = require("../libs/users");
+var util        = require("../libs/util");
 
 var router = express.Router();
 
