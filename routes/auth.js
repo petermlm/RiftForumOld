@@ -23,7 +23,7 @@ login.post("/", function(req, res) {
 
 logout.post("/", function(req, res) {
     auth.endSession(res);
-    res.redirect("back");
+    res.redirect("/");
 });
 
 module.exports = {

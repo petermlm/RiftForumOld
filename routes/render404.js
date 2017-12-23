@@ -17,7 +17,6 @@ router.get("/", function(req, res) {
         args.setLoggedinUser(token_object);
     }
 
-    args.text404 = "Page Not Found";
     res.render("../views/pages/404", args);
 });
 

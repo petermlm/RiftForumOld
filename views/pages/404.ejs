@@ -4,15 +4,24 @@
 <html lang="en">
 <head>
     <% include ../partials/head %>
-    <script type="text/javascript" src="/js/notfound.js"></script>
 </head>
 <body class="container">
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>
+
     <main>
     <div class="jumbotron display404">
         <div><h1>404</h1></div>
-        <div><p><%= text404 %></p></div>
-        <div><p>Redirecting. <a href="/">Click here if nothing happens</a></p></div>
+        <div><p>Not Found</p></div>
+        <div><a href="/">Back to Index</a></div>
     </div>
     </main>
+
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
 </body>
 </html>
