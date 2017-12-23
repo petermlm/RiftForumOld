@@ -24,6 +24,12 @@ module.exports.createUser = (username, password) => {
     return models.User.create(new_user_info);
 };
 
+module.exports.changePassword = (user, new_password) => {
+    var hash = hash_password(new_password);
+    user.password_hash = hash;
+    return user.save();
+};
+
 module.exports.checkUser = (username, password) => {
     return new Promise((resolve, reject) => {
         models.User.findOne({"where": {"username": username}})
@@ -56,16 +62,21 @@ module.exports.canEdit = (username_editor, username_edited) => {
                 var editor_type = user_editor['user_type'];
                 var edited_type = user_edited['user_type'];
 
+                var can_edit = false;
+                var can_edit_password = false;
+
                 if(editor_id == edited_id ||
                         editor_type == 'Administrator' ||
                         editor_type == 'Moderator' && edited_type == 'User')
                 {
-                    resolve(true);
+                    can_edit = true;
                 }
 
-                else {
-                    resolve(false);
+                if(editor_id == edited_id) {
+                    can_edit_password = true;
                 }
+
+                resolve([can_edit, can_edit_password]);
             });
         });
     });

@@ -35,9 +35,9 @@
                 <% if(enable_edition) { %>
                 <div id="user_info_about_form">
                     <form method="POST" action="/users/<%= user_info.username %>">
-                    <textarea class="form-control" name="about" placeholder="About"><%= user_info.about %></textarea>
-                    <button type="submit" class="btn btn-default">Send</button>
-                    <button type="button" id="user_info_about_cancel" class="btn btn-default">Cancel</button>
+                        <textarea class="form-control" name="about" placeholder="About"><%= user_info.about %></textarea>
+                        <button type="submit" class="btn btn-default">Send</button>
+                        <button type="button" id="user_info_about_cancel" class="btn btn-default">Cancel</button>
                     </form>
                 </div>
                 <% } %>
@@ -55,14 +55,29 @@
                 <% if(enable_edition) { %>
                 <div id="user_info_signature_form">
                     <form method="POST" action="/users/<%= user_info.username %>">
-                    <textarea class="form-control" name="signature" placeholder="Signature"><%= user_info.signature %></textarea>
-                    <button type="submit" class="btn btn-default">Send</button>
-                    <button type="button" id="user_info_signature_cancel" class="btn btn-default">Cancel</button>
+                        <textarea class="form-control" name="signature" placeholder="Signature"><%= user_info.signature %></textarea>
+                        <button type="submit" class="btn btn-default">Send</button>
+                        <button type="button" id="user_info_signature_cancel" class="btn btn-default">Cancel</button>
                     </form>
                 </div>
                 <% } %>
             </div>
         </div>
+
+        <% if(enable_password_edition) { %>
+        <div class="user_info_wrapper">
+            <div class="user_info_part">
+                <h2>Change Password</h2>
+                <div id="user_info_password_form">
+                    <form method="POST" action="/users/<%= user_info.username %>/change_password">
+                        <input class="form-control" name="password" placeholder="Password" type="password" />
+                        <input class="form-control" name="password2" placeholder="Confirm Password" type="password" />
+                        <button class="form-control btn btn-default" type="submit">Change</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <% } %>
     </main>
 
     <footer>

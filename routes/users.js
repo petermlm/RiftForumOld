@@ -64,8 +64,9 @@ router.get("/:username", (req, res) => {
     // Check if the current user can edit the information of the user in this
     // page
     users.canEdit(username_token, username)
-        .then((can_edit) => {
-            args.enable_edition = can_edit;
+        .then((edits) => {
+            args.enable_edition = edits[0];
+            args.enable_password_edition = edits[1];
 
             models.User.findOne({"where": {"username": username}})
                 .then((user) => {
@@ -144,6 +145,34 @@ router.post("/change_type/:user_id", function(req, res) {
         .catch((error) => {
             console.error(error);
             res.redirect("/500");
+        });
+});
+
+router.post("/:username/change_password", function(req, res) {
+    var username = req.params.username;
+    var password  = req.body.password;
+    var password2 = req.body.password2;
+
+    if(password != password2) {
+        console.log("Passwords don't match");
+        res.redirect("back");
+        // TODO: Needs user feeback
+        return
+    }
+
+    models.User.findOne({"where": {"username": username}})
+        .then((user) => {
+            users.changePassword(user, password)
+                .then(() => {
+                    res.redirect("back");
+                })
+                .catch((error) => {
+                    console.error(error);
+                    res.redirect("/500");
+                });
+        })
+        .catch((error) => {
+            res.redirect("/404");
         });
 });
 

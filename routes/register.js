@@ -16,6 +16,7 @@ router.get("/", function(req, res) {
     var token_object = auth.checkSession(req);
     if(token_object != undefined) {
         res.redirect("/");
+        return;
     }
 
     res.render(path.join("../views/pages", "register"), args);
@@ -40,6 +41,7 @@ router.post("/", function(req, res) {
         console.log("Passwords don't match");
         res.redirect("back");
         // TODO: Needs user feeback
+        return;
     }
 
     users.createUser(username, password)
