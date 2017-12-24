@@ -13,6 +13,7 @@ services:
       - /home/petermlm/Documents/Projects/RiftForum/proj:/app
     environment:
       - NODE_PATH=/package/node_modules
+      - DEBUG=true
   postgres:
     build:
       context: ..

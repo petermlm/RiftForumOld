@@ -2,10 +2,10 @@ var express = require("express");
 var path    = require("path");
 
 var auth        = require("../libs/auth");
-var render_args = require("../libs/render_args");
-var util        = require("../libs/util");
-var users       = require("../libs/users");
 var models      = require("../models");
+var render_args = require("../libs/render_args");
+var users       = require("../libs/users");
+var util        = require("../libs/util");
 
 var router = express.Router();
 
@@ -23,21 +23,27 @@ router.get("/", (req, res) => {
         return;
     }
 
-    models.User.all()
+    var can_change_type = token_object["user_type"] == "Administrator";
+    args["CanChangeType"] = can_change_type;
+
+    models.User.all({"order": [["createdAt", "DESC"]]})
         .then((users) => {
             args.users = [];
 
             users.forEach((user) => {
                 args.users.push({
+                    "id":        user["id"],
                     "username":  user["username"],
                     "user_type": user["user_type"],
-                    "Created":   user["createdAt"]
+                    "Created":   util.formatDates(user["createdAt"])
                 });
             });
 
             res.render(path.join("../views/pages", "users"), args);
         })
         .catch((error) => {
+            console.error(error);
+            res.redirect("/500");
         });
 });
 
@@ -58,8 +64,9 @@ router.get("/:username", (req, res) => {
     // Check if the current user can edit the information of the user in this
     // page
     users.canEdit(username_token, username)
-        .then((can_edit) => {
-            args.enable_edition = can_edit;
+        .then((edits) => {
+            args.enable_edition = edits[0];
+            args.enable_password_edition = edits[1];
 
             models.User.findOne({"where": {"username": username}})
                 .then((user) => {
@@ -78,11 +85,13 @@ router.get("/:username", (req, res) => {
                     res.render(path.join("../views/pages", "user_info"), args);
                 })
                 .catch((error) => {
-                    res.redirect("/404");
+                    console.error(error);
+                    res.redirect("/500");
                 });
         })
         .catch((error) => {
-            res.redirect("/404");
+            console.error(error);
+            res.redirect("/500");
         });
 });
 
@@ -112,7 +121,59 @@ router.post("/:username", function(req, res) {
             user.save();
             res.redirect(req.originalUrl);
         })
-        .catch((error) => {});
+        .catch((error) => {
+            console.error(error);
+            res.redirect("/500");
+        });
+});
+
+router.post("/:user_id/change_type", function(req, res) {
+    var user_id = req.params.user_id;
+
+    models.User.findOne({"where": {"id": user_id}})
+        .then((user) => {
+            if(user.user_type == "User") {
+                user.user_type = "Moderator";
+            } else if(user.user_type == "Moderator") {
+                user.user_type = "User";
+            }
+
+            user.save().then(() => {
+                res.redirect("/users");
+            });
+        })
+        .catch((error) => {
+            console.error(error);
+            res.redirect("/500");
+        });
+});
+
+router.post("/:username/change_password", function(req, res) {
+    var username = req.params.username;
+    var password  = req.body.password;
+    var password2 = req.body.password2;
+
+    if(password != password2) {
+        console.log("Passwords don't match");
+        res.redirect("back");
+        // TODO: Needs user feeback
+        return
+    }
+
+    models.User.findOne({"where": {"username": username}})
+        .then((user) => {
+            users.changePassword(user, password)
+                .then(() => {
+                    res.redirect("back");
+                })
+                .catch((error) => {
+                    console.error(error);
+                    res.redirect("/500");
+                });
+        })
+        .catch((error) => {
+            res.redirect("/404");
+        });
 });
 
 module.exports = router;

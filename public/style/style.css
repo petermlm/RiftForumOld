@@ -7,13 +7,17 @@ footer {
     margin-top: 30px;
 }
 
-a:visited {
+.link_visited:visited {
     color: #551a8b;
 }
 
 .user_display {
     padding-top: 8px;
     padding-right: 14px;
+}
+
+.submit_button[disabled] {
+    cursor: default;
 }
 
 /* ============================================================================
@@ -135,10 +139,13 @@ nav {
     width: 100px;
 }
 
-.text_feedback {
-    color: grey;
+#text_feedback {
     padding-top: 18px;
     padding-left: 12px;
+}
+
+.text_feedback_normal {
+    color: grey;
 }
 
 /* ============================================================================
@@ -239,6 +246,14 @@ nav {
     width: 100px;
 }
 
+.new_message form button[name=post] {
+    margin-left: 10px;
+}
+
+.new_message form button[name=clear] {
+    display: none;
+}
+
 /* ============================================================================
  * Users List
  * ============================================================================
@@ -258,6 +273,10 @@ nav {
 }
 
 .users_list_creation_date {
+    text-align: right;
+}
+
+.users_list_change_type {
     text-align: right;
 }
 
@@ -320,6 +339,10 @@ nav {
     display: none;
 }
 
+#user_info_password_form form input {
+    margin-bottom: 20px;
+}
+
 /* ============================================================================
  * Register
  * ============================================================================
@@ -344,11 +367,48 @@ nav {
 }
 
 /* ============================================================================
- * 404
+ * Admin
  * ============================================================================
  */
 
-.display404 div {
+.admin_wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.admin_part {
+    width: 1030px;
+    background-color: #f5f5f5;
+    padding-top: 0;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+}
+
+.admin_part h2 {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #8c8c8c;
+    margin-bottom: 25px;
+}
+
+.admin_part button {
+    width: 125px;
+}
+
+/* ============================================================================
+ * 404 and 500
+ * ============================================================================
+ */
+
+.display-error {
+    margin-top: 40px;
+}
+
+.display-error div {
     width: 100%;
     display: flex;
     justify-content: center;

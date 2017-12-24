@@ -14,5 +14,5 @@ module.exports = (sequelize, DataTypes) => {
         Topic.hasMany(models.Message);
     };
 
-    return Topic
+    return Topic;
 };

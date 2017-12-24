@@ -1,0 +1,49 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body>
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>
+
+    <div class="page_title_wrapper">
+        <div class="page_title">
+            <h1>Administrator Control Panel</h1>
+        </div>
+    </div>
+
+    <div class="admin_wrapper">
+        <div class="admin_part form-group">
+            <h2>Issue Invite</h2>
+            <div class="form-group">
+                <label for="invite_key">Invite Key</label>
+                <input id="invite_key" class="form-control" text="text" readonly />
+                <small class="form-text text-muted">The key for this invite</small>
+            </div>
+            <div class="form-group">
+                <label for="invite_url">Invite URL</label>
+                <input id="invite_url" class="form-control" text="text" readonly />
+                <small class="form-text text-muted">The URL for registration with this key</small>
+            </div>
+            <div class="form-group">
+                <button id="invite_button" class="btn btn-default">Issue Invite</button>
+            </div>
+            <div class="form-group">
+                <button id="clear_invites_button" class="btn btn-default">Clear All Invites</button>
+            </div>
+        </div>
+    </div>
+
+    </main>
+
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+</body>
+</html>

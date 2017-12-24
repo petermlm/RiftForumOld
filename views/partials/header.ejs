@@ -17,6 +17,10 @@
             <% if(!login) { %>
                 <li <% if(page === "register") { %> class="active" <% } %> ><a href="/register">Register</a></li>
             <% } %>
+
+            <% if(is_admin) { %>
+                <li <% if(page === "admin") { %> class="active" <% } %> ><a href="/admin">Admin</a></li>
+            <% } %>
         </ul>
 
         <div class="nav_right">

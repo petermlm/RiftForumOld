@@ -15,7 +15,8 @@ router.get("/", function(req, res) {
     // Check session
     var token_object = auth.checkSession(req);
     if(token_object != undefined) {
-        res.end("Error");
+        res.redirect("/");
+        return;
     }
 
     res.render(path.join("../views/pages", "register"), args);
@@ -29,20 +30,30 @@ router.post("/", function(req, res) {
     // Check session
     var token_object = auth.checkSession(req);
     if(token_object != undefined) {
-        res.end("Error");
+        res.redirect("/");
     }
 
-    var username  = req.body.username;
-    var password  = req.body.password;
-    var password2 = req.body.password2;
+    var invite_key = req.body.invite_key;
+    var username   = req.body.username;
+    var password   = req.body.password;
+    var password2  = req.body.password2;
 
     if(password != password2) {
         console.log("Passwords don't match");
-        res.end("Error");
+        res.redirect("back");
+        // TODO: Needs user feedback
+        return;
     }
 
-    users.createUser(username, password);
-    res.redirect("/");
+    users.createUser(invite_key, username, password)
+        .then((new_user) => {
+            auth.startSession(res, new_user["id"], new_user["username"], new_user["user_type"]);
+            res.redirect("/");
+        })
+        .catch((error) => {
+            console.error(error);
+            res.redirect("back");
+        });
 });
 
 module.exports = router;
