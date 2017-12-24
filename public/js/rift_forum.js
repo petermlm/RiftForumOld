@@ -193,6 +193,7 @@ var RiftForum = (function() {
 
         inviteButton: function() {
             var invite_button = $("#invite_button");
+            var clear_invites_button = $("#clear_invites_button");
 
             if(!invite_button) {
                 return;
@@ -201,7 +202,7 @@ var RiftForum = (function() {
             var self = this;
             invite_button.click(function() {
                 $.ajax({
-                    'url': '/admin/issue_invite',
+                    'url': '/admin/invites',
                     // 'data': '',
                     // 'contentType': 'application/json',
                     'method': 'POST',
@@ -212,6 +213,13 @@ var RiftForum = (function() {
                     'error': function(error) {
                         window.location = "/500";
                     }
+                });
+            });
+
+            clear_invites_button.click(function() {
+                $.ajax({
+                    'url': '/admin/invites',
+                    'method': 'delete',
                 });
             });
         },

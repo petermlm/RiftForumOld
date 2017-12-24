@@ -14,3 +14,7 @@ module.exports.issue_invite = () => {
 
     return models.Invite.create(new_invite);
 };
+
+module.exports.delete_invites = () => {
+    models.Invite.destroy({"where": {}});
+};

@@ -24,7 +24,7 @@ router.get("/", (req, res) => {
     res.render(path.join("../views/pages", "admin"), args);
 });
 
-router.post("/issue_invite", (req, res) => {
+router.post("/invites", (req, res) => {
     res.setHeader('Content-Type', 'application/json');
 
     admin.issue_invite()
@@ -35,6 +35,11 @@ router.post("/issue_invite", (req, res) => {
             console.error(error);
             res.send(JSON.stringify({}));
         });
+});
+
+router.delete("/invites", (req, res) => {
+    admin.delete_invites();
+    res.sendStatus(200);
 });
 
 module.exports = router;
