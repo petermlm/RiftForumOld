@@ -404,8 +404,15 @@ nav {
  * ============================================================================
  */
 
+.error_wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .display-error {
     margin-top: 40px;
+    width: 1030px;
 }
 
 .display-error div {
