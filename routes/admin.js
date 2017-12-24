@@ -1,6 +1,7 @@
 var express = require("express");
 var path    = require("path");
 
+var admin       = require("../libs/admin");
 var auth        = require("../libs/auth");
 var render_args = require("../libs/render_args");
 
@@ -21,6 +22,19 @@ router.get("/", (req, res) => {
     }
 
     res.render(path.join("../views/pages", "admin"), args);
+});
+
+router.post("/issue_invite", (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+
+    admin.issue_invite()
+        .then((invite) => {
+            res.send(JSON.stringify(invite));
+        })
+        .catch((error) => {
+            console.error(error);
+            res.send(JSON.stringify({}));
+        });
 });
 
 module.exports = router;

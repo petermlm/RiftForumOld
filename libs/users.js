@@ -10,18 +10,40 @@ module.exports = {
     hash_password: hash_password
 };
 
-module.exports.createUser = (username, password) => {
-    var hash = hash_password(password);
+module.exports.createUser = (invite_key, username, password) => {
+    return new Promise((resolve, reject) => {
+        models.Invite.findOne({"where": {"key": invite_key}})
+            .then((invite) => {
+                if(invite.used) {
+                    reject();
+                    return;
+                }
 
-    var new_user_info = {
-        "username":      username,
-        "password_hash": hash,
-        "signature":     "",
-        "about":         "I am a RiftForum user.",
-        "user_type":     "User"
-    };
+                invite.used = true;
+                invite.save();
 
-    return models.User.create(new_user_info);
+                var hash = hash_password(password);
+
+                var new_user_info = {
+                    "username":      username,
+                    "password_hash": hash,
+                    "signature":     "",
+                    "about":         "I am a RiftForum user.",
+                    "user_type":     "User"
+                };
+
+                models.User.create(new_user_info)
+                    .then((user) => {
+                        resolve(user);
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
 };
 
 module.exports.changePassword = (user, new_password) => {

@@ -33,31 +33,26 @@ router.post("/", function(req, res) {
         res.redirect("/");
     }
 
-    var username  = req.body.username;
-    var password  = req.body.password;
-    var password2 = req.body.password2;
+    var invite_key = req.body.invite_key;
+    var username   = req.body.username;
+    var password   = req.body.password;
+    var password2  = req.body.password2;
 
     if(password != password2) {
         console.log("Passwords don't match");
         res.redirect("back");
-        // TODO: Needs user feeback
+        // TODO: Needs user feedback
         return;
     }
 
-    users.createUser(username, password)
+    users.createUser(invite_key, username, password)
         .then((new_user) => {
-            var token_obj = {
-                "user_id":   new_user["id"],
-                "username":  new_user["username"],
-                "user_type": new_user["user_type"]
-            };
-
-            auth.startSession(res, token_obj);
+            auth.startSession(res, new_user["id"], new_user["username"], new_user["user_type"]);
             res.redirect("/");
         })
         .catch((error) => {
             console.error(error);
-            res.redirect("/500");
+            res.redirect("back");
         });
 });
 

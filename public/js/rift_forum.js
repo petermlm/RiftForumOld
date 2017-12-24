@@ -13,6 +13,12 @@ var RiftForum = (function() {
             // Keep char numbers
             this.keepCharNumbersTopics();
             this.keepCharNumbersMessages();
+
+            // Register
+            this.register();
+
+            // Invite button
+            this.inviteButton();
         },
 
         showBadLogin: function() {
@@ -162,6 +168,62 @@ var RiftForum = (function() {
             }
 
             elements.text_feedback_val.text(text_length);
+        },
+
+        register: function() {
+            var invite_input = $(".register-container form input[name=invite_key]");
+
+            if(!invite_input) {
+                return;
+            }
+
+            var query_string = window.location.search.substring(1);
+            var key_values = query_string.split("&");
+
+            key_values.forEach(function(key_value) {
+                var key = key_value.split("=")[0];
+                var value = key_value.split("=")[1];
+
+                if(key == "key") {
+                    invite_input.val(value);
+                    return;
+                }
+            });
+        },
+
+        inviteButton: function() {
+            var invite_button = $("#invite_button");
+
+            if(!invite_button) {
+                return;
+            }
+
+            var self = this;
+            invite_button.click(function() {
+                $.ajax({
+                    'url': '/admin/issue_invite',
+                    // 'data': '',
+                    // 'contentType': 'application/json',
+                    'method': 'POST',
+                    'timeout': 1000,
+                    'success': function(ret) {
+                        self.display_invite(ret);
+                    },
+                    'error': function(error) {
+                        window.location = "/500";
+                    }
+                });
+            });
+        },
+
+        display_invite: function(js) {
+            var invite_key = $("#invite_key");
+            var invite_url = $("#invite_url");
+
+            var invite_url_text = window.location.origin + "/register?key=" + js["key"];
+
+            invite_key.val(js["key"]);
+            invite_url.val(invite_url_text);
         }
     };
 })();
