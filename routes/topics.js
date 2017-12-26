@@ -4,6 +4,7 @@ var path    = require("path");
 var auth        = require("../libs/auth");
 var models      = require("../models");
 var render_args = require("../libs/render_args");
+var topics      = require("../libs/topics");
 var util        = require("../libs/util");
 
 var router = express.Router();
@@ -25,28 +26,16 @@ router.post("/", function(req, res) {
     var title   = req.body.title;
     var message = req.body.message;
 
-    models.Topic.create({
-        "title": title,
-        "UserId": user_id
-    })
-    .then((topic) => {
-        models.Message.create({
-            "message": message,
-            "UserId": user_id,
-            "TopicId": topic["id"],
-        })
-        .then((message) => {
+    topics.createNewTopic(user_id, title, message)
+        .then((args) => {
+            topic = args[0]
+            message = args[1]
             res.redirect(path.join(req.originalUrl, ""+topic["id"]));
         })
         .catch((error) => {
             console.error(error);
             res.redirect("/500");
         });
-    })
-    .catch((error) => {
-        console.error(error);
-        res.redirect("/500");
-    });
 });
 
 router.get("/:topic_id", (req, res) => {

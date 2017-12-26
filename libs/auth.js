@@ -12,9 +12,17 @@ function makeJWT(user_id, username, user_type) {
     return jwt.sign(token_obj, config.secret, config.expires);
 }
 
+function getAuthToken(user_id, username, user_type) {
+    return makeJWT(user_id, username, user_type);
+}
+
 function startSession(res, user_id, username, user_type) {
-    token = makeJWT(user_id, username, user_type);
+    token = getAuthToken(user_id, username, user_type);
     res.cookie("token", token);
+}
+
+function checkToken(token) {
+    return jwt.verify(token, config.secret);
 }
 
 function checkSession(req) {
@@ -23,7 +31,7 @@ function checkSession(req) {
     }
 
     try {
-        return jwt.verify(req.cookies["token"], config.secret);
+        return checkToken(req.cookies["token"]);
     } catch(err) {
         return undefined;
     }
@@ -38,7 +46,9 @@ function setBadLoginCookie(res) {
 }
 
 module.exports = {
+    getAuthToken: getAuthToken,
     startSession: startSession,
+    checkToken:   checkToken,
     checkSession: checkSession,
     endSession: endSession,
     setBadLoginCookie: setBadLoginCookie

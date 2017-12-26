@@ -44,6 +44,7 @@ var routes = {
     users:     require("./routes/users"),
     register:  require("./routes/register"),
     admin:     require("./routes/admin"),
+    api:       require("./routes/api"),
     errors:    require("./routes/errors")
 };
 
@@ -54,6 +55,7 @@ app.use("/topics",   routes.topics);
 app.use("/users",    routes.users);
 app.use("/register", routes.register);
 app.use("/admin",    routes.admin);
+app.use("/api",      routes.api);
 app.use("/404",      routes.errors.router404);
 app.use("/500",      routes.errors.router500);
 app.use("*",         routes.errors.router404);
