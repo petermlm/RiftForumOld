@@ -27,6 +27,9 @@ router.get("/", (req, res) => {
                 "model": models.Message,
                 "include": [models.User]
             }
+        ],
+        "order": [
+            ["Messages", "createdAt", "DESC"]
         ]
     };
 
