@@ -7,7 +7,6 @@ var path         = require("path");
 
 var config = require("./libs/config");
 var models = require("./models");
-var default_data = require("./libs/default_data");
 
 /* ============================================================================
  * Setup Models
@@ -16,7 +15,6 @@ var default_data = require("./libs/default_data");
 
 models.sequelize.sync().then(() => {
     console.log('Models Sync');
-    default_data.create();
 });
 
 /* ============================================================================

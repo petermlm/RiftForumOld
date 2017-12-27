@@ -1,4 +1,11 @@
 #!/bin/bash
 
-sleep 2
+# Just wait two seconds before Postgres is ready
+sleep 5
+
+# Run migrations and seeds
+/package/node_modules/.bin/sequelize db:migrate
+/package/node_modules/.bin/sequelize db:seed:all
+
+# Start
 nodemon npm start

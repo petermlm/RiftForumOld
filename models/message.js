@@ -3,8 +3,8 @@
  */
 
 module.exports = (sequelize, DataTypes) => {
-    var Message = sequelize.define('Message', {
-        'message': {'type': DataTypes.STRING(10000)}
+    var Message = sequelize.define("Message", {
+        "message": {"type": DataTypes.STRING(10000)}
     });
 
     Message.associate = (models) => {

@@ -4,16 +4,17 @@ var fs        = require("fs");
 var path      = require("path");
 var Sequelize = require("sequelize");
 var env       = process.env.NODE_ENV || "development";
+var config    = require(__dirname + '/../config/config.json')[env];
 
-const config = require("../libs/config");
+const project_config = require("../libs/config");
 
 const sequelize = new Sequelize(
-    config["database"]["database"],
-    config["database"]["user"],
-    config["database"]["password"],
+    project_config["database"]["database"],
+    project_config["database"]["user"],
+    project_config["database"]["password"],
     {
-        host: config["database"]["host"],
-        port: config["database"]["port"],
+        host: project_config["database"]["host"],
+        port: project_config["database"]["port"],
         dialect: 'postgres',
         logging: (_msg) => {},
         pool: {

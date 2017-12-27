@@ -1,0 +1,12 @@
+{
+    "development": {
+        "username":      "riftforum_user",
+        "password":      "riftforum_pass",
+        "database":      "riftforum_db",
+        "host":          "postgres",
+        "port":          5432,
+        "dialect":       "postgres",
+        "seederStorage": "sequelize",
+        "seederStorageTableName": "sequelize_data"
+    }
+}

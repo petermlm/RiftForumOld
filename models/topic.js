@@ -5,8 +5,8 @@
  */
 
 module.exports = (sequelize, DataTypes) => {
-    var Topic = sequelize.define('Topic', {
-        'title': {'type': DataTypes.STRING}
+    var Topic = sequelize.define("Topic", {
+        "title": {"type": DataTypes.STRING(100)}
     });
 
     Topic.associate = (models) => {

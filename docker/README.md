@@ -74,3 +74,18 @@ To tear down:
 
     sudo docker-compose -f docker-compose-prod.yml down
     sudo docker-compose -f docker-compose-dev.yml down
+
+## Bash and PSQL
+
+To open a shell in the node docker use:
+
+    sudo docker exec -it docker_node_1 bash
+
+This will allow you to create models, seeds, and run migrations when in
+development.
+
+To open psql, first run bash into the Postgres container, then run:
+
+    psql -h postgres -U riftforum_user -d riftforum_db
+
+You will be prompted for the password.

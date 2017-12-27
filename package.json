@@ -21,6 +21,7 @@
     "marked": "^0.3.6",
     "pg-promise": "~5.3.5",
     "sequelize": "^4.4.3",
+    "sequelize-cli": "^3.2.0",
     "serve-favicon": "~2.3.0"
   }
 }
