@@ -213,9 +213,12 @@ nav {
 }
 
 .message_list_author_message_sig {
-    border-top: 1px solid #e7e7e7;
     margin-top: 10px;
     padding-top: 10px;
+}
+
+.message_list_author_message_sig_line {
+    border-top: 1px solid #e7e7e7;
 }
 
 /* ============================================================================
