@@ -10,7 +10,7 @@ services:
       - postgres
     entrypoint: docker/entry-dev.sh
     volumes:
-      - /home/petermlm/Documents/Projects/RiftForum/proj:/app
+      - ../:/app
     environment:
       - NODE_PATH=/package/node_modules
       - DEBUG=true
