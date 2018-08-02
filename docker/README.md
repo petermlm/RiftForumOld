@@ -62,24 +62,24 @@ Because of this two things, every change done to a file will restart node.
 
 Use the following commands to build:
 
-    sudo docker-compose -f docker-compose-prod.yml build
-    sudo docker-compose -f docker-compose-dev.yml build
+    docker-compose -f docker-compose-prod.yml build
+    docker-compose -f docker-compose-dev.yml build
 
 To run:
 
-    sudo docker-compose -f docker-compose-prod.yml up
-    sudo docker-compose -f docker-compose-dev.yml up
+    docker-compose -f docker-compose-prod.yml up
+    docker-compose -f docker-compose-dev.yml up
 
 To tear down:
 
-    sudo docker-compose -f docker-compose-prod.yml down
-    sudo docker-compose -f docker-compose-dev.yml down
+    docker-compose -f docker-compose-prod.yml down
+    docker-compose -f docker-compose-dev.yml down
 
 ## Bash and PSQL
 
 To open a shell in the node docker use:
 
-    sudo docker exec -it docker_node_1 bash
+    docker exec -it docker_node_1 bash
 
 This will allow you to create models, seeds, and run migrations when in
 development.
