@@ -1,3 +1,5 @@
+*This is an old project I no longer activly maintain. I've reimplemented this in Go in petermlm/RiftForum.*
+
 This is an implementation of a simple forum in Node.js. It is inspired on
 Simple Machine forums and phpBB, although it is way much simpler.
 
